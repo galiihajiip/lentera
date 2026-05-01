@@ -52,7 +52,7 @@ const TESTIMONIALS = [
     university: "Institut Teknologi Bandung",
     initial: "S",
     color: "blue",
-    quote: "Lensa Japanese menjelaskan supply and demand menggunakan ekonomi produksi anime. Saya jadi benar-benar menikmati belajar. Fitur kuisnya membuat saya tetap fokus.",
+    quote: "Lensa Wayang menjelaskan supply and demand menggunakan cerita pewayangan. Saya jadi benar-benar menikmati belajar. Fitur kuisnya membuat saya tetap fokus.",
     stars: 5,
   },
   {
@@ -76,7 +76,7 @@ const TESTIMONIALS = [
     university: "Universitas Gadjah Mada",
     initial: "A",
     color: "teal",
-    quote: "Lensa Islamic untuk perilaku organisasi mengubah cara saya memahami teori manajemen. Glosarium dua bahasanya adalah penyelamat untuk istilah-istilah teknis.",
+    quote: "Lensa Pesantren untuk perilaku organisasi mengubah cara saya memahami teori manajemen. Glosarium dua bahasanya adalah penyelamat untuk istilah-istilah teknis.",
     stars: 5,
   },
   {
