@@ -1,7 +1,5 @@
 import type { Metadata, Viewport } from 'next'
 import { Sora, Inter } from 'next/font/google'
-import Navbar from '@/components/Navbar'
-import Footer from '@/components/Footer'
 import ToastContainer from '@/components/Toast'
 import './globals.css'
 
@@ -56,9 +54,7 @@ export default function RootLayout({
   return (
     <html lang="id" className={`${sora.variable} ${inter.variable} scroll-smooth`}>
       <body className="bg-lentera-bg text-lentera-text min-h-screen antialiased font-body">
-        <Navbar />
         {children}
-        <Footer />
         <ToastContainer />
       </body>
     </html>

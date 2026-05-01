@@ -6,9 +6,9 @@ export const metadata: Metadata = {
 }
 
 /**
- * Layout khusus /app — tidak merender Navbar & Footer global
- * karena halaman dashboard punya topbar sendiri yang sticky.
- * ToastContainer di-render di dalam page.tsx.
+ * Layout khusus /app.
+ * Catatan: Navbar & Footer di-render secara eksklusif di Landing Page (src/app/page.tsx),
+ * sehingga tidak mengganggu layout dashboard ini.
  */
 export default function AppLayout({ children }: { children: React.ReactNode }) {
   return <>{children}</>
