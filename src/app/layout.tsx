@@ -1,5 +1,8 @@
 import type { Metadata, Viewport } from 'next'
 import { Sora, Inter } from 'next/font/google'
+import Navbar from '@/components/Navbar'
+import Footer from '@/components/Footer'
+import ToastContainer from '@/components/Toast'
 import './globals.css'
 
 // ─── Font Setup ──────────────────────────────────────────────
@@ -29,8 +32,11 @@ export const metadata: Metadata = {
     title: 'LENTERA',
   },
   icons: {
-    icon: '/icons/icon-192.png',
-    apple: '/icons/icon-192.png',
+    icon: [
+      { url: '/icons/icon-192.png', sizes: '192x192', type: 'image/png' },
+      { url: '/icons/icon-512.png', sizes: '512x512', type: 'image/png' },
+    ],
+    apple: '/icons/apple-touch-icon.png',
   },
 }
 
@@ -50,7 +56,10 @@ export default function RootLayout({
   return (
     <html lang="id" className={`${sora.variable} ${inter.variable} scroll-smooth`}>
       <body className="bg-lentera-bg text-lentera-text min-h-screen antialiased font-body">
+        <Navbar />
         {children}
+        <Footer />
+        <ToastContainer />
       </body>
     </html>
   )

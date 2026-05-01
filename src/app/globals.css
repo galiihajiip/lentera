@@ -43,18 +43,23 @@ body {
 }
 
 /* ═══ GLASSMORPHISM UTILITY ═══ */
+/* border-color/style dipecah agar Tailwind border-width utilities bisa override */
 .glass {
   background: rgba(12, 20, 12, 0.7);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(26, 42, 26, 0.6);
+  border-color: rgba(26, 42, 26, 0.6);
+  border-style: solid;
+  border-width: 1px;
 }
 
 .glass-strong {
   background: rgba(12, 20, 12, 0.85);
   backdrop-filter: blur(24px);
   -webkit-backdrop-filter: blur(24px);
-  border: 1px solid rgba(26, 42, 26, 0.8);
+  border-color: rgba(26, 42, 26, 0.8);
+  border-style: solid;
+  border-width: 1px;
 }
 
 /* ═══ GLOW EFFECTS ═══ */

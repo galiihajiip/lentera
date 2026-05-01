@@ -1,6 +1,5 @@
 'use client'
 
-import { useEffect } from 'react'
 import { useLenteraStore } from '@/store/useLenteraStore'
 import { X, CheckCircle, AlertCircle, Info, AlertTriangle } from 'lucide-react'
 
