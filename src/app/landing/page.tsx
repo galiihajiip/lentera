@@ -5,7 +5,7 @@ import Link from 'next/link'
 import Gambar from 'next/image'
 import LogoMark from '@/components/LogoMark'
 import Footer from '@/components/Footer'
-import CustomCursor from '@/components/CustomCursor'
+
 
 const LENSES_ROW_1 = [
   { id: 'nusantara', emoji: '🏝️', label: 'Nusantara', region: 'Umum' },
