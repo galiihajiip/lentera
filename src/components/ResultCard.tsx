@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useCallback, useRef } from 'react'
+import { useState, useCallback, useRef, useEffect } from 'react'
 import {
   Brain,
   Globe,
@@ -21,6 +21,13 @@ import type { ResultData, GlossaryItem } from '@/types'
 function useTTS() {
   const [speakingId, setSpeakingId] = useState<string | null>(null)
   const utterRef = useRef<SpeechSynthesisUtterance | null>(null)
+
+  // Cleanup saat unmount — cegah TTS terus berjalan
+  useEffect(() => {
+    return () => {
+      if ('speechSynthesis' in window) window.speechSynthesis.cancel()
+    }
+  }, [])
 
   const speak = useCallback((text: string, id: string) => {
     if (!('speechSynthesis' in window)) return
@@ -85,7 +92,7 @@ function DyslexiaText({ text }: { text: string }) {
   return (
     <div className="space-y-3">
       {lines.map((line, i) => {
-        const isBullet = line.startsWith('-') || line.startsWith('•') || line.startsWith('*') && !line.startsWith('**')
+        const isBullet = line.startsWith('-') || line.startsWith('•') || (line.startsWith('*') && !line.startsWith('**'))
         const clean = isBullet ? line.replace(/^[-•*]\s*/, '') : line
 
         return isBullet ? (

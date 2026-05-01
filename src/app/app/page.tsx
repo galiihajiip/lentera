@@ -19,7 +19,6 @@ import ResultCard from '@/components/ResultCard'
 import QuizCard from '@/components/QuizCard'
 import AudioPlayer from '@/components/AudioPlayer'
 import HistoryPanel from '@/components/HistoryPanel'
-import ToastContainer from '@/components/Toast'
 import type { ResultData, QuizItem, TabType } from '@/types'
 
 // ─── Konstanta ──────────────────────────────────────────────
@@ -295,10 +294,9 @@ export default function DashboardPage() {
         {/* ── KOLOM KIRI: Input Panel ── */}
         <section
           aria-label="Panel Input Materi"
-          className="flex flex-col border-b lg:border-b-0 lg:border-r border-lentera-border bg-lentera-surface overflow-y-auto custom-scrollbar"
-          style={{ maxHeight: 'calc(50vh)' }}
+          className="flex flex-col border-b lg:border-b-0 lg:border-r border-lentera-border bg-lentera-surface overflow-y-auto custom-scrollbar max-h-[50vh] lg:max-h-none"
         >
-          <div className="p-5 flex flex-col gap-5 lg:max-h-none" style={{ maxHeight: 'none' }}>
+          <div className="p-5 flex flex-col gap-5">
 
             {/* ─ Materi ─ */}
             <div className="flex flex-col gap-2">
@@ -486,9 +484,6 @@ export default function DashboardPage() {
       {isCaraPakaiOpen && (
         <CaraPakaiModal onClose={() => setIsCaraPakaiOpen(false)} />
       )}
-
-      {/* ToastContainer sudah di root layout, tapi render ulang biar z-index aman */}
-      <ToastContainer />
     </div>
   )
 }

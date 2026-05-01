@@ -64,16 +64,17 @@ export default function QuizCard({ items, onFinish }: QuizCardProps) {
   // ── Lanjut ke soal berikutnya ──
   const handleNext = useCallback(() => {
     if (currentIndex + 1 >= total) {
+      // Hitung skor final di sini untuk menghindari stale closure
+      const finalScore = score
       setShowFinished(true)
-      onFinish?.(score + (selectedAnswer === currentItem.correctAnswer ? 0 : 0), total)
-      // score sudah di-update saat pilih, jadi pakai state score
+      onFinish?.(finalScore, total)
     } else {
       setCurrentIndex((i) => i + 1)
       setSelectedAnswer(null)
       setIsAnswered(false)
       setAnimKey((k) => k + 1)
     }
-  }, [currentIndex, total, score, selectedAnswer, currentItem, onFinish])
+  }, [currentIndex, total, score, onFinish])
 
   // ── Ulangi kuis ──
   const handleReset = useCallback(() => {
