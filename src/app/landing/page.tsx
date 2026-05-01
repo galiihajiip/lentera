@@ -654,7 +654,7 @@ export default function LandingPage() {
       <section className="py-24 bg-lentera-surface/50 border-y border-lentera-border relative overflow-hidden z-10">
         <div className="max-w-6xl mx-auto px-8 mb-16 text-center">
           <span className="text-lentera-green text-sm font-semibold uppercase tracking-[0.2em] mb-4 block">Apa kata pembelajar</span>
-          <h2 className="font-display font-extrabold text-[clamp(28px,4vw,40px)] leading-tight mb-4 text-lentera-text">Wawasan kelas dunia dari pelajar dunia</h2>
+          <h2 className="font-display font-extrabold text-[clamp(28px,4vw,40px)] leading-tight mb-4 text-lentera-text">Wawasan inspiratif dari mahasiswa Indonesia</h2>
         </div>
 
         <div className="flex flex-col gap-8">
