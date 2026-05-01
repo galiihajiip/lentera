@@ -19,27 +19,13 @@ import ResultCard from '@/components/ResultCard'
 import QuizCard from '@/components/QuizCard'
 import AudioPlayer from '@/components/AudioPlayer'
 import HistoryPanel from '@/components/HistoryPanel'
+import LoadingSpinner from '@/components/LoadingSpinner'
 import type { ResultData, QuizItem, TabType } from '@/types'
 
 // ─── Konstanta ──────────────────────────────────────────────
 const MIN_TEXT = 50
-
-// ─── Loading Spinner ─────────────────────────────────────────
-function LoadingSpinner({ label }: { label: string }) {
-  return (
-    <div className="flex flex-col items-center justify-center py-24 gap-5">
-      <div className="relative w-16 h-16">
-        <div className="absolute inset-0 rounded-full border-2 border-lentera-border" />
-        <div className="absolute inset-0 rounded-full border-2 border-lentera-green border-t-transparent animate-spin" />
-        <div className="absolute inset-2 rounded-full border border-lentera-green/20 border-t-transparent animate-spin" style={{ animationDuration: '1.5s', animationDirection: 'reverse' }} />
-      </div>
-      <div className="text-center">
-        <p className="text-sm font-medium text-lentera-text">{label}</p>
-        <p className="text-xs text-lentera-muted mt-1">Mohon tunggu sebentar…</p>
-      </div>
-    </div>
-  )
-}
+const ANALYSIS_LABEL   = 'Sedang menganalisis materi…'
+const ANALYSIS_SUBTITLE = 'Lensa budaya sedang memproses konten'
 
 // ─── Empty State Output ──────────────────────────────────────
 function EmptyState() {
@@ -150,7 +136,6 @@ export default function DashboardPage() {
   const [isHistoryOpen,  setIsHistoryOpen]  = useState(false)
   const [isCaraPakaiOpen, setIsCaraPakaiOpen] = useState(false)
   const [isQuizLoading,  setIsQuizLoading]  = useState(false)
-  const [analysisLabel,  setAnalysisLabel]  = useState('Sedang menganalisis…')
 
   // ── Generate Analisis ──
   const handleGenerateAnalysis = useCallback(async () => {
@@ -160,7 +145,6 @@ export default function DashboardPage() {
     }
 
     setLoading(true)
-    setAnalysisLabel('Sedang menganalisis…')
     resetSession()
 
     try {
@@ -346,7 +330,7 @@ export default function DashboardPage() {
               {isLoading ? (
                 <>
                   <Loader2 size={16} className="animate-spin shrink-0" />
-                  {analysisLabel}
+                  {ANALYSIS_LABEL}
                 </>
               ) : (
                 <>
@@ -422,7 +406,10 @@ export default function DashboardPage() {
           >
             {/* ─ Loading ─ */}
             {isLoading && (
-              <LoadingSpinner label={analysisLabel} />
+              <LoadingSpinner
+                label={ANALYSIS_LABEL}
+                subtitle={ANALYSIS_SUBTITLE}
+              />
             )}
 
             {/* ─ Tab: Hasil Analisis ─ */}
@@ -451,7 +438,10 @@ export default function DashboardPage() {
             {!isLoading && activeTab === 'quiz' && (
               <>
                 {isQuizLoading && (
-                  <LoadingSpinner label="Membuat kuis…" />
+                  <LoadingSpinner
+                    label="Membuat kuis dari materi…"
+                    subtitle="3 soal pilihan ganda sedang disiapkan"
+                  />
                 )}
                 {!isQuizLoading && quizData && (
                   <QuizCard

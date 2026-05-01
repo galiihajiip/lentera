@@ -56,12 +56,7 @@ function useTTS() {
     setSpeakingId(id)
   }, [speakingId])
 
-  const stop = useCallback(() => {
-    window.speechSynthesis.cancel()
-    setSpeakingId(null)
-  }, [])
-
-  return { speakingId, speak, stop }
+  return { speakingId, speak }
 }
 
 // ─── Render teks dengan markdown bold ────────────────────────
