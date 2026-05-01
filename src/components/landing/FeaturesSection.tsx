@@ -6,7 +6,7 @@ const FEATURES = [
   {
     icon: Globe,
     title: 'Lensa Budaya',
-    subtitle: '50+ Lensa Tersedia',
+    subtitle: '85+ Lensa Tersedia',
     description:
       'Pahami teori akademik melalui analogi budaya yang relevan — dari wayang Jawa hingga filosofi Minangkabau. AI mencocokkan bahasa input secara otomatis.',
     badge: 'AI-LANG',
