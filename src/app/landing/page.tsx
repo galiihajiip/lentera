@@ -8,101 +8,99 @@ import Footer from '@/components/Footer'
 import CustomCursor from '@/components/CustomCursor'
 
 const LENSES_ROW_1 = [
-  { id: 'nusantara', emoji: '🌴', label: 'Nusantara', region: 'SE Asia' },
-  { id: 'japanese', emoji: '⛩️', label: 'Japanese', region: 'East Asia' },
-  { id: 'islamic_arabic', emoji: '☪️', label: 'Arabic', region: 'Middle East' },
-  { id: 'greek_classical', emoji: '🏛️', label: 'Greek Classical', region: 'Ancient' },
-  { id: 'chinese', emoji: '🐉', label: 'Chinese', region: 'East Asia' },
-  { id: 'korean', emoji: '🇰🇷', label: 'Korean', region: 'East Asia' },
-  { id: 'west_african', emoji: '🌍', label: 'West African', region: 'Africa' },
-  { id: 'viking', emoji: '⚡', label: 'Viking', region: 'Ancient Europe' },
-  { id: 'gamer', emoji: '🎮', label: 'Gamer', region: 'Special' },
-  { id: 'musical', emoji: '🎵', label: 'Musical', region: 'Special' },
-  { id: 'islamic_persian', emoji: '🕌', label: 'Persian', region: 'Middle East' },
-  { id: 'filipino', emoji: '🌊', label: 'Filipino', region: 'SE Asia' },
-  { id: 'nepali', emoji: '🏔️', label: 'Nepali', region: 'South Asia' },
-  { id: 'east_african', emoji: '🦁', label: 'East African', region: 'Africa' },
+  { id: 'nusantara', emoji: '🏝️', label: 'Nusantara', region: 'Umum' },
+  { id: 'aceh', emoji: '🕌', label: 'Aceh', region: 'Sumatera' },
+  { id: 'minangkabau', emoji: '🍛', label: 'Minangkabau', region: 'Sumatera' },
+  { id: 'jawa_mataraman', emoji: '🎎', label: 'Jawa Mataraman', region: 'Jawa' },
+  { id: 'sunda', emoji: '🎶', label: 'Sunda', region: 'Jawa' },
+  { id: 'betawi', emoji: '🪆', label: 'Betawi', region: 'Jawa' },
+  { id: 'bali', emoji: '🪷', label: 'Bali', region: 'Bali & Nusa Tenggara' },
+  { id: 'sasak', emoji: '🎣', label: 'Sasak', region: 'Bali & Nusa Tenggara' },
+  { id: 'dayak_kenyah', emoji: '🎭', label: 'Dayak Kenyah', region: 'Kalimantan' },
+  { id: 'banjar', emoji: '🛶', label: 'Banjar', region: 'Kalimantan' },
+  { id: 'bugis', emoji: '⛵', label: 'Bugis', region: 'Sulawesi' },
+  { id: 'toraja', emoji: '⚰️', label: 'Toraja', region: 'Sulawesi' },
 ]
 
 const LENSES_ROW_2 = [
-  { id: 'mexican', emoji: '🇲🇽', label: 'Mexican', region: 'Americas' },
-  { id: 'thai', emoji: '🌺', label: 'Thai', region: 'SE Asia' },
-  { id: 'mesopotamian', emoji: '🏺', label: 'Mesopotamian', region: 'Ancient' },
-  { id: 'taiwanese', emoji: '🌸', label: 'Taiwanese', region: 'East Asia' },
-  { id: 'mediterranean', emoji: '🎭', label: 'Mediterranean', region: 'Europe' },
-  { id: 'native_american', emoji: '🏹', label: 'Native American', region: 'Americas' },
-  { id: 'hindu_vedic', emoji: '☯️', label: 'Vedic', region: 'South Asia' },
-  { id: 'bengali', emoji: '🌿', label: 'Bengali', region: 'South Asia' },
-  { id: 'mongolian', emoji: '🗺️', label: 'Mongolian', region: 'East Asia' },
-  { id: 'latin_american', emoji: '🎺', label: 'Latin American', region: 'Americas' },
-  { id: 'islamic_turkish', emoji: '🌙', label: 'Turkish', region: 'Middle East' },
-  { id: 'andean', emoji: '🦅', label: 'Andean', region: 'Americas' },
+  { id: 'minahasa', emoji: '🎵', label: 'Minahasa', region: 'Sulawesi' },
+  { id: 'ambon', emoji: '🥁', label: 'Ambon', region: 'Maluku' },
+  { id: 'ternate', emoji: '🏰', label: 'Ternate', region: 'Maluku' },
+  { id: 'asmat', emoji: '🪵', label: 'Asmat', region: 'Papua' },
+  { id: 'dani', emoji: '🌾', label: 'Dani', region: 'Papua' },
+  { id: 'biak', emoji: '🛶', label: 'Biak', region: 'Papua' },
+  { id: 'madura', emoji: '🐂', label: 'Madura', region: 'Jawa' },
+  { id: 'tengger', emoji: '🌄', label: 'Tengger', region: 'Jawa' },
+  { id: 'batak_toba', emoji: '🎭', label: 'Batak Toba', region: 'Sumatera' },
+  { id: 'palembang', emoji: '🐟', label: 'Palembang', region: 'Sumatera' },
+  { id: 'kutai', emoji: '👑', label: 'Kutai', region: 'Kalimantan' },
+  { id: 'baduy', emoji: '🌾', label: 'Baduy', region: 'Jawa' },
 ]
 
 // ── TESTIMONIALS DATA ──
 const TESTIMONIALS = [
   {
-    name: "Aisha Mahmoud",
-    university: "University of Toronto, Canada",
-    initial: "A",
+    name: "Budi Santoso",
+    university: "Universitas Indonesia",
+    initial: "B",
     color: "green",
-    quote: "The Islamic lens made thermodynamics click instantly. Explaining entropy through the concept of tawakkul gave me a mental model that no lecture ever could. My midterm score jumped two full letter grades.",
+    quote: "Lensa Nusantara membuat materi termodinamika langsung masuk akal. Menjelaskan entropi melalui konsep kekacauan pasar tradisional memberi saya gambaran mental yang luar biasa.",
     stars: 5,
   },
   {
-    name: "Park Seo-jin",
-    university: "Yonsei University, South Korea",
-    initial: "P",
+    name: "Siti Rahmawati",
+    university: "Institut Teknologi Bandung",
+    initial: "S",
     color: "blue",
-    quote: "The Korean lens explained supply and demand using K-drama production economics. I actually enjoyed studying for the first time. The quiz feature kept me focused without feeling overwhelmed.",
+    quote: "Lensa Japanese menjelaskan supply and demand menggunakan ekonomi produksi anime. Saya jadi benar-benar menikmati belajar. Fitur kuisnya membuat saya tetap fokus.",
     stars: 5,
   },
   {
-    name: "Priya Krishnamurthy",
-    university: "IIT Delhi, India",
-    initial: "P",
+    name: "I Wayan Suardana",
+    university: "Universitas Udayana",
+    initial: "W",
     color: "purple",
-    quote: "As someone with dyslexia, the formatted output alone is worth everything. Short sentences, bold keywords, generous spacing. LENTERA reads my material the way my brain needs it to be presented.",
+    quote: "Sebagai seseorang dengan disleksia, hasil format dari LENTERA sangat luar biasa. Kalimat pendek, kata kunci ditebalkan, dan spasi lebar. LENTERA luar biasa.",
     stars: 5,
   },
   {
-    name: "Marcos Dela Cruz",
-    university: "University of the Philippines Diliman",
-    initial: "M",
+    name: "Andi Manggala",
+    university: "Universitas Hasanuddin",
+    initial: "A",
     color: "amber",
-    quote: "Filipino bayanihan analogy for distributed computing was pure genius. The TTS feature with word highlighting lets me study during my 3-hour Manila commute without looking at the screen.",
+    quote: "Analogi Nusantara tentang sistem komputasi terdistribusi benar-benar jenius. Fitur baca otomatis (TTS) dengan sorotan kata sangat mempermudah saya.",
     stars: 5,
   },
   {
-    name: "Mei Ling Zhao",
-    university: "National Taiwan University",
-    initial: "M",
+    name: "Ahmad Fauzi",
+    university: "Universitas Gadjah Mada",
+    initial: "A",
     color: "teal",
-    quote: "Chinese Confucian lens for organizational behavior transformed how I understand management theory. The bilingual glossary is a lifesaver for technical terms in my second language.",
+    quote: "Lensa Islamic untuk perilaku organisasi mengubah cara saya memahami teori manajemen. Glosarium dua bahasanya adalah penyelamat untuk istilah-istilah teknis.",
     stars: 5,
   },
   {
-    name: "Dimitri Alexopoulos",
-    university: "University of Athens, Greece",
+    name: "Dewi Lestari",
+    university: "Universitas Airlangga",
     initial: "D",
     color: "green",
-    quote: "Greek Classical lens for philosophy coursework is incredible. Explaining the Socratic method through debugging code made my professor stop the lecture to ask where I learned that analogy.",
+    quote: "Lensa Nusantara untuk filsafat sangat luar biasa. Menjelaskan metode Sokrates melalui analogi musyawarah desa membuat dosen saya terkagum-kagum.",
     stars: 5,
   },
   {
-    name: "Fatima Al-Rashid",
-    university: "King Abdulaziz University, Saudi Arabia",
-    initial: "F",
+    name: "Rina Permatasari",
+    university: "Universitas Diponegoro",
+    initial: "R",
     color: "blue",
-    quote: "LENTERA explained neural networks using the Islamic concept of ijma (scholarly consensus). As an international student the cultural bridge made abstract AI concepts finally make sense.",
+    quote: "LENTERA menjelaskan jaringan saraf tiruan menggunakan konsep sistem subak di Bali. Sebagai mahasiswa biasa, jembatan budaya ini membuat konsep AI menjadi masuk akal.",
     stars: 5,
   },
   {
-    name: "James Okonkwo",
-    university: "University of Lagos, Nigeria",
-    initial: "J",
+    name: "Fajar Pratama",
+    university: "Universitas Padjadjaran",
+    initial: "F",
     color: "amber",
-    quote: "West African Ubuntu lens for systems thinking was a revelation. Explaining interdependency through community cooperation gave me frameworks I use in every engineering class now.",
+    quote: "Lensa budaya untuk pemikiran sistem adalah sebuah revolusi. Menjelaskan interdependensi melalui gotong royong memberi saya kerangka kerja yang mudah dipahami.",
     stars: 5,
   },
 ]
@@ -225,7 +223,7 @@ export default function LandingPage() {
         <div className="flex flex-col text-left">
           <div className="animate-fade-up inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-lentera-green/10 border border-lentera-green-dim text-lentera-green text-[11px] font-bold tracking-widest uppercase mb-6 w-fit">
             <span className="w-2 h-2 rounded-full bg-lentera-green animate-pulse" />
-            AI Case Competition · GDG UTSC 2026
+            Platform AI Pembelajaran · NITRO 2026
           </div>
 
           <h1 className="animate-fade-up font-display font-extrabold text-[clamp(42px,6vw,72px)] leading-[1.02] tracking-tight mb-8" style={{ animationDelay: '0.1s' }}>
@@ -235,7 +233,7 @@ export default function LandingPage() {
           </h1>
 
           <p className="animate-fade-up text-lg text-lentera-text-secondary font-light leading-relaxed max-w-[580px] mb-10" style={{ animationDelay: '0.2s' }}>
-            LENTERA mengubah materi akademik kompleks menjadi <span className="text-lentera-green-text font-medium underline decoration-lentera-green/30 underline-offset-4">analogi budaya yang bermakna</span>: from Indigenous wisdom to North American pop, South Asian heritage to K-Drama. Dibangun untuk memberdayakan <span className="text-lentera-green-text font-medium decoration-lentera-green/30 underline underline-offset-4">semua jenis pembelajar</span> and global scholars.
+            LENTERA mengubah materi akademik kompleks menjadi <span className="text-lentera-green-text font-medium underline decoration-lentera-green/30 underline-offset-4">analogi budaya yang bermakna</span>: dari kearifan Nusantara hingga budaya pop modern. Dibangun untuk memberdayakan <span className="text-lentera-green-text font-medium decoration-lentera-green/30 underline underline-offset-4">semua jenis pembelajar</span> dan mahasiswa di seluruh Indonesia.
           </p>
 
           <div className="animate-fade-up flex flex-wrap gap-5" style={{ animationDelay: '0.3s' }}>
@@ -386,7 +384,7 @@ export default function LandingPage() {
             <span className="text-lentera-green">Cara Anda memahami.</span>
           </h2>
           <p className="text-lentera-text-secondary font-light max-w-[600px]">
-            Setiap siswa berpikir berbeda. LENTERA berbicara dalam bahasa Anda: bukan hanya secara linguistik, tetapi budaya. From ancient stories to modern gaming logic.
+            Setiap siswa berpikir berbeda. LENTERA berbicara dalam bahasa Anda: bukan hanya secara linguistik, tetapi budaya. Dari cerita pewayangan hingga logika modern.
           </p>
         </div>
 
@@ -433,9 +431,9 @@ export default function LandingPage() {
             <span className="text-lentera-green drop-shadow-[0_0_20px_rgba(74,222,128,0.2)]">belajar tanpa batas</span>
           </h2>
           <p className="text-lentera-text-secondary text-lg leading-relaxed max-w-2xl font-light">
-            Six AI-powered tools designed with semua jenis pembelajar in mind.
-            Generous spacing, clear language, and cultural context: because
-            everyone learns differently.
+            Enam alat berbasis AI yang dirancang untuk semua jenis pembelajar.
+            Spasi ekstra, bahasa yang jelas, dan konteks budaya: karena
+            setiap orang belajar dengan cara yang berbeda.
           </p>
         </div>
 
@@ -451,10 +449,9 @@ export default function LandingPage() {
                 Mesin Lensa Budaya
               </h3>
               <p className="text-lentera-text-secondary text-base lg:text-lg leading-relaxed font-light mb-8 max-w-xl">
-                Transform dense academic text into vivid, memorable analogies
-                from 50+ world cultures. Mitochondria explained via a <span className="text-lentera-green/80 font-medium">Padang warung
-                  kitchen</span>. Quantum superposition through a <span className="text-lentera-green/80 font-medium">gamelan orchestra</span>.
-                Your cultural background becomes your greatest learning superpower.
+                Ubah teks akademik yang padat menjadi analogi yang hidup dan mudah diingat
+                dari berbagai budaya. Mitokondria dijelaskan lewat <span className="text-lentera-green/80 font-medium">dapur warung Padang</span>. Superposisi kuantum lewat <span className="text-lentera-green/80 font-medium">orkestra gamelan</span>.
+                Latar belakang budaya Anda kini menjadi kekuatan belajar terbesar Anda.
               </p>
               <div className="mt-auto">
                 <span className="text-xs font-semibold uppercase tracking-widest text-lentera-green bg-lentera-green-subtle border border-lentera-green-glow px-4 py-2 rounded-full">
@@ -486,33 +483,33 @@ export default function LandingPage() {
           {[
             {
               icon: '📖',
-              tag: 'Accessibility',
+              tag: 'Aksesibilitas',
               title: 'Struktur Ramah Disleksia',
-              desc: 'Setiap teks panjang dipecah menjadi kalimat pendek, clear bullet points, and bold keywords. Generous spacing. Clean layout. Because every learner deserves to understand, not just survive.'
+              desc: 'Setiap teks padat dipecah menjadi kalimat pendek, poin-poin yang jelas, dan kata kunci tebal. Tata letak bersih dengan spasi luas. Karena setiap pelajar berhak untuk paham, bukan sekadar bertahan.'
             },
             {
               icon: '🎮',
-              tag: 'Engagement',
-              title: 'Kuis Mikro Gamifikasi',
-              desc: 'Tiga pertanyaan berbalut budaya. Five focused minutes. Instant feedback with explanations. Designed for ADHD brains that learn best through urgency, narrative, and quick wins.'
+              tag: 'Keterlibatan',
+              title: 'Kuis Mikro Interaktif',
+              desc: 'Tiga pertanyaan berbasis budaya. Fokus lima menit dengan umpan balik cepat dan penjelasan detail. Dirancang untuk pembelajar yang butuh tantangan instan dan narasi yang seru.'
             },
             {
               icon: '📚',
-              tag: 'Comprehension',
+              tag: 'Pemahaman',
               title: 'Glosarium Pintar Bilingual',
-              desc: 'Every complex academic term decoded in plain English (B1 level) and local cultural context. No more falling into dictionary rabbit holes mid-study session.'
+              desc: 'Setiap istilah akademik yang rumit dijelaskan dalam bahasa sederhana dan konteks budaya lokal. Tidak perlu lagi bolak-balik membuka kamus saat sedang belajar.'
             },
             {
               icon: '🖼️',
-              tag: 'Multimodal Input',
+              tag: 'Multimodal',
               title: 'Unggah Apa Saja: Catatan, Foto, Audio',
-              desc: 'Photograph your handwritten notes. Upload a lecture screenshot. Record a voice memo. LENTERA extracts and structures the text using Gemini Vision, then analyzes it through your chosen lens.'
+              desc: 'Foto catatan tulisan tangan Anda. Unggah tangkapan layar materi. Rekam memo suara. LENTERA akan mengekstrak teks menggunakan Gemini Vision, lalu menganalisisnya lewat lensa budaya pilihan.'
             },
             {
               icon: '🔊',
-              tag: 'Audio Learning',
+              tag: 'Pendengaran',
               title: 'Teks-to-Speech dengan Sorotan Kata',
-              desc: 'Listen as every word lights up in real time. Choose your playback speed and voice language. Study on your commute, eyes-free. Built for auditory learners and anyone with reading fatigue.'
+              desc: 'Dengarkan saat setiap kata disorot secara real-time. Pilih kecepatan suara dan bahasa. Belajar di perjalanan tanpa menatap layar. Dibuat untuk mereka yang mudah lelah membaca.'
             },
           ].map((f, i) => (
             <div key={i} className="reveal bg-lentera-surface border border-lentera-border2 rounded-2xl p-10 flex flex-col gap-8 hover:-translate-y-2 hover:border-lentera-green-glow transition-all duration-300 group">
@@ -553,19 +550,19 @@ export default function LandingPage() {
               num: '01',
               icon: '📥',
               title: 'Tempel atau Unggah Materi Anda',
-              desc: 'Type lecture notes, paste from a PDF, photograph handwritten notes, or upload an audio recording. LENTERA handles all formats.'
+              desc: 'Ketik catatan kuliah, tempel dari PDF, foto tulisan tangan, atau unggah rekaman audio. LENTERA menangani berbagai macam format masukan.'
             },
             {
               num: '02',
               icon: '🌍',
               title: 'Pilih Lensa Budaya Anda',
-              desc: 'Select from 50+ world cultures. Nusantara, Japanese, Viking, Islamic, Gamer: pick the lens that resonates with you.'
+              desc: 'Pilih dari puluhan budaya. Nusantara, Japanese, Viking, Gamer: pilih lensa yang paling sesuai dengan Anda.'
             },
             {
               num: '03',
               icon: '✦',
               title: 'Dapatkan Analisis Personal Anda',
-              desc: 'Receive a dyslexia-friendly breakdown, cultural analogy, exam boundary warning, and bilingual glossary: all in seconds.'
+              desc: 'Dapatkan rangkuman ramah disleksia, analogi budaya, serta glosarium bilingual: semuanya dalam hitungan detik.'
             }
           ].map((step, i) => (
             <div key={i} className="reveal flex flex-col items-center text-center relative z-10">
@@ -588,37 +585,37 @@ export default function LandingPage() {
           <span className="text-lentera-green text-sm font-semibold uppercase tracking-[0.2em] mb-4 block">Untuk Siapa</span>
           <h2 className="font-display font-extrabold text-[clamp(28px,4vw,44px)] leading-tight mb-4">Dibangun untuk setiap jenis pikiran</h2>
           <p className="text-lentera-text-secondary text-lg font-light leading-relaxed max-w-2xl">
-            Tidak ada pembelajar yang tertinggal. Whether you're navigating dyslexia, ADHD, or a multicultural background, LENTERA adapts to you.
+            Tidak ada pembelajar yang tertinggal. Baik Anda memiliki tantangan fokus, membaca, maupun latar belakang budaya tertentu, LENTERA beradaptasi dengan Anda.
           </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10 max-w-7xl mx-auto">
           {[
             {
-              tag: 'Dyslexia',
+              tag: 'Disleksia',
               icon: '🧠',
-              title: 'The Deliberate Learner',
-              role: 'Dyslexia / Reading difficulty',
-              quote: 'I used to avoid dense lecture slides. Now I paste them into LENTERA and get clear, spaced-out bullet points I can actually process — in my own cultural language.',
-              features: ['Dyslexia-Friendly Teks', 'TTS Highlight', 'Bilingual Glossary'],
+              title: 'Pembelajar Visual',
+              role: 'Kesulitan Membaca / Disleksia',
+              quote: 'Dulu saya menghindari slide kuliah yang padat. Sekarang saya menempelkannya di LENTERA dan mendapatkan poin-poin yang jelas dan renggang — dalam bahasa budaya saya sendiri.',
+              features: ['Teks Ramah Disleksia', 'Sorotan TTS', 'Glosarium Pintar'],
               color: 'border-lentera-green'
             },
             {
-              tag: 'ADHD',
+              tag: 'Fokus',
               icon: '⚡',
-              title: 'The Sprint Learner',
-              role: 'ADHD / Focus challenges',
-              quote: 'ADHD makes focused reading hard, especially for dry subjects. The mini quizzes give me that quick hit of challenge I need to actually stay engaged with the material.',
-              features: ['Gamified Quizzes', 'Audio Scholar', 'Narrative Analogies'],
+              title: 'Pembelajar Cepat',
+              role: 'Tantangan Fokus / ADHD',
+              quote: 'Sangat sulit untuk fokus membaca materi yang membosankan. Kuis mikro memberi saya tantangan cepat yang saya butuhkan untuk tetap terhubung dengan materi.',
+              features: ['Kuis Gamifikasi', 'Asisten Audio', 'Analogi Naratif'],
               color: 'border-amber-500'
             },
             {
               tag: 'Global',
               icon: '🌏',
-              title: 'The Global Scholar',
-              role: 'International / Multicultural',
-              quote: 'Explaining recursion through the Mahabharata? That clicked in 30 seconds what three lectures never could. Finally, software engineering makes sense to my brain.',
-              features: ['50+ Cultural Lensa', 'Multimodal Input', 'Multilingual TTS'],
+              title: 'Pelajar Lintas Budaya',
+              role: 'Internasional / Multikultural',
+              quote: 'Menjelaskan rekursi melalui cerita wayang? Konsep itu langsung saya pahami dalam 30 detik dibanding 3 pertemuan kelas. Akhirnya, saya paham dasar pemrograman.',
+              features: ['50+ Lensa Budaya', 'Input Multimodal', 'TTS Multibahasa'],
               color: 'border-sky-500'
             }
           ].map((p, i) => (
@@ -723,8 +720,7 @@ export default function LandingPage() {
           </span>
           <h2 className="font-display font-extrabold text-[clamp(28px,4vw,52px)] leading-tight mb-6">Coba LENTERA: sepenuhnya gratis</h2>
           <p className="text-lentera-text-secondary text-lg font-light leading-relaxed max-w-2xl">
-            Tanpa akun. Tanpa pembayaran. Just paste your material
-            and start learning in your cultural language.
+            Tanpa akun. Tanpa pembayaran. Cukup tempel materi Anda dan mulailah belajar dalam bahasa budaya Anda.
           </p>
         </div>
 
@@ -732,8 +728,8 @@ export default function LandingPage() {
           <div className="absolute top-0 right-0 w-32 h-32 bg-lentera-green/10 blur-3xl pointer-events-none group-hover:bg-lentera-green/20 transition-all" />
 
           <div className="relative text-center">
-            <div className="font-display font-extrabold text-7xl text-lentera-green mb-2 tracking-tighter">FREE</div>
-            <div className="text-lentera-muted text-xs uppercase font-bold tracking-[0.3em] mb-12">During Hackathon Demo Period</div>
+            <div className="font-display font-extrabold text-7xl text-lentera-green mb-2 tracking-tighter">GRATIS</div>
+            <div className="text-lentera-muted text-xs uppercase font-bold tracking-[0.3em] mb-12">Selama Masa Uji Coba NITRO 2026</div>
 
             <ul className="space-y-4 mb-12 text-left inline-block">
               {[
@@ -753,7 +749,7 @@ export default function LandingPage() {
 
             <div className="relative">
               <Link href="/app" className="block relative z-10 bg-lentera-green text-lentera-bg py-5 px-10 rounded-2xl font-display font-bold text-xl hover:-translate-y-1 hover:shadow-2xl hover:bg-green-300 transition-all duration-300">
-                ✦ Buka LENTERA Now
+                ✦ Buka LENTERA Sekarang
               </Link>
               <div className="absolute -right-8 -bottom-10 w-40 h-auto opacity-20 pointer-events-none z-0 animate-float" style={{ animationDelay: '1s' }}>
                 <Gambar
@@ -788,12 +784,12 @@ export default function LandingPage() {
           </h2>
 
           <p className="text-lentera-text-secondary text-lg font-light leading-relaxed mb-12 max-w-[600px] mx-auto">
-            Tidak ada lagi kesulitan memahami buku teks yang padat. Let LENTERA and Bagong guide you through any subject, in any language, through any cultural lens.
+            Tidak ada lagi kesulitan memahami buku teks yang padat. Biarkan LENTERA dan Bagong memandu Anda melalui subjek apa pun, dalam bahasa apa pun, melalui lensa budaya apa pun.
           </p>
 
           <div className="flex flex-wrap justify-center gap-6 font-display">
             <Link href="/app" className="bg-lentera-green text-lentera-bg px-10 py-5 rounded-xl font-bold text-lg hover:-translate-y-1 hover:shadow-2xl transition-all duration-300">
-              ✦ Buka LENTERA Now
+              ✦ Buka LENTERA Sekarang
             </Link>
             <a 
               href="https://github.com/galiihajiip/kalika" 

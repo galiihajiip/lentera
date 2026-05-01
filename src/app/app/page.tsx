@@ -108,21 +108,21 @@ export default function HomePage() {
         
         <div className="flex items-center gap-6">
           <p className="hidden md:block text-xs text-lentera-muted font-medium bg-lentera-bg/50 px-3 py-1.5 rounded-full border border-lentera-border">
-            Learn through the <span className="text-lentera-green-dim font-bold">cultural lens</span> you choose
+            Belajar melalui <span className="text-lentera-green-dim font-bold">lensa budaya</span> pilihan Anda
           </p>
           <div className="flex items-center gap-2">
             <button 
               onClick={() => setHowToOpen(true)}
               className="text-xs font-semibold text-lentera-muted hover:text-lentera-green transition-colors px-4 py-2 rounded-lg border border-transparent hover:border-lentera-border"
             >
-              How to use
+              Cara Pakai
             </button>
             <button 
               id="btn-history-panel"
               onClick={() => setHistoryOpen(true)}
               className="text-xs font-bold text-lentera-muted hover:text-lentera-green transition-colors px-4 py-2 rounded-lg border border-lentera-border hover:bg-lentera-surface2"
             >
-              History {history.length > 0 && `(${history.length})`}
+              Riwayat {history.length > 0 && `(${history.length})`}
             </button>
           </div>
         </div>
@@ -222,7 +222,7 @@ export default function HomePage() {
                   {['🌴 Coba Nusantara', '⛩ Coba Japanese', '⚡ Coba Viking', '🎮 Coba Gamer'].map(s => (
                     <button key={s}
                       onClick={() => {
-                        const label = s.split('Try ')[1].toLowerCase()
+                        const label = s.split('Coba ')[1].toLowerCase()
                         const id = LENS_ITEMS.find(l => l.label.toLowerCase() === label)?.id
                         if (id) setSelectedLens(id)
                       }}
@@ -262,7 +262,7 @@ export default function HomePage() {
                   <div className="text-6xl mb-2">🎮</div>
                   <p className="text-base font-semibold text-lentera-text-secondary">Belum ada kuis</p>
                   <p className="text-sm text-center max-w-[280px] leading-relaxed">
-                    First generate an analysis, then click "Generate Kuis Mikro" in the result panel.
+                    Buat analisis terlebih dahulu, lalu klik "Buat Kuis Mikro" di panel hasil.
                   </p>
                   {resultData && (
                     <button
