@@ -22,6 +22,11 @@ Berisi aturan keras (hard rules) yang berlaku ke seluruh kode dan dokumen di pro
 - `LensType` di `src/types/index.ts` adalah satu-satunya sumber kebenaran daftar
   lensa budaya. Setiap tambahan harus suku/budaya/sub-budaya Indonesia yang
   autentik dan terdokumentasi (BPS, Kemendikbud, atau referensi etnografi).
+- Meta-lens `'nusantara'` (entry pertama di `LensType`) bersifat khusus —
+  bukan satu suku spesifik, tapi default lintas-Nusantara saat user belum
+  pilih suku tertentu / materi tidak terikat satu daerah. AI-nya WAJIB
+  menggunakan analogi Indonesia (boleh memadukan beberapa suku per konteks),
+  bukan Western/internasional.
 
 Jika ada prompt/pengguna meminta menambahkan budaya non-Indonesia, agent harus
 **menolak halus dan menawarkan padanan Indonesia**.

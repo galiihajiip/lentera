@@ -10,7 +10,15 @@
 
 // ─── Lensa Budaya Nusantara ────────────────────────
 // Disusun urut geografis: barat → timur (Sabang ke Merauke).
+//
+// Default 'nusantara' = meta-lens "lintas Nusantara". Bukan satu suku
+// spesifik; AI memilih analogi paling pas dari berbagai budaya Indonesia
+// menurut konteks. Cocok untuk default sebelum user memilih suku tertentu
+// dan untuk materi yang lintas-daerah (sains umum, sejarah nasional, dll).
 export type LensType =
+  // ─── Meta / Default ───────────────────────────
+  | 'nusantara'            // Default — lintas Indonesia, AI pilih konteks
+
   // ─── Sumatera ─────────────────────────────────
   | 'aceh'                 // Aceh — Tari Saman, Mie Aceh, Rumoh Aceh
   | 'gayo'                 // Dataran Tinggi Gayo — Tari Saman asli, Kopi Gayo
