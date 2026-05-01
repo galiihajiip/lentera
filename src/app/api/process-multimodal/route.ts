@@ -59,14 +59,11 @@ export async function POST(request: NextRequest) {
     })
 
     return NextResponse.json({ success: true, extractedText })
-  } catch (error: any) {
-    console.error('[Process-Multimodal] Error:', error?.message || error)
-    return NextResponse.json(
-      {
-        success: false,
-        error: error?.message || 'Gagal memproses file. Silakan coba lagi.',
-      },
-      { status: 500 }
-    )
+  } catch (error: unknown) {
+    const message =
+      error instanceof Error ? error.message : 'Gagal memproses file. Silakan coba lagi.'
+
+    console.error('[Process-Multimodal] Error:', message)
+    return NextResponse.json({ success: false, error: message }, { status: 500 })
   }
 }

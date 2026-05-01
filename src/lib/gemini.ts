@@ -1,4 +1,4 @@
-import { GoogleGenAI } from '@google/genai'
+import { GoogleGenAI, type Part } from '@google/genai'
 
 // Inisialisasi Singleton Instance
 const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY as string })
@@ -33,7 +33,7 @@ export async function callGemini({
 
   for (let attempt = 1; attempt <= MAX_RETRIES; attempt++) {
     try {
-      const contents: any[] = []
+      const contents: Part[] = []
 
       if (includeMedia) {
         contents.push({
@@ -44,7 +44,7 @@ export async function callGemini({
         })
       }
 
-      contents.push(userPrompt)
+      contents.push({ text: userPrompt })
 
       const response = await ai.models.generateContent({
         model: 'gemini-2.5-flash',
@@ -77,24 +77,30 @@ export async function callGemini({
       }
 
       return responseText.trim()
-    } catch (error: any) {
-      const isRetryableError =
-        error.message?.includes('429') ||
-        error.message?.includes('503') ||
-        error.status === 429 ||
-        error.status === 503
+    } catch (error: unknown) {
+      const isRetryable =
+        error instanceof Error &&
+        (error.message.includes('429') ||
+          error.message.includes('503') ||
+          ('status' in error && (error as { status: number }).status === 429) ||
+          ('status' in error && (error as { status: number }).status === 503))
 
-      if (isRetryableError && attempt < MAX_RETRIES) {
+      if (isRetryable && attempt < MAX_RETRIES) {
         const waitTime = Math.pow(2, attempt) * 1000
-        console.warn(`[Gemini] Error ${error.status || '429/503'}. Retry ${attempt}/${MAX_RETRIES} dalam ${waitTime}ms...`)
+        console.warn(
+          `[Gemini] Error rate-limit/server. Retry ${attempt}/${MAX_RETRIES} dalam ${waitTime}ms...`
+        )
         await delay(waitTime)
         continue
       }
 
-      console.error('[Gemini] Gagal memanggil model:', error?.message || error)
-      throw new Error(
-        error?.message || 'Gagal terhubung ke layanan Gemini AI. Silakan coba lagi.'
-      )
+      const message =
+        error instanceof Error
+          ? error.message
+          : 'Gagal terhubung ke layanan Gemini AI. Silakan coba lagi.'
+
+      console.error('[Gemini] Gagal memanggil model:', message)
+      throw new Error(message)
     }
   }
 

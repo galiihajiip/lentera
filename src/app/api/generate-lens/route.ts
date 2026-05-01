@@ -2,10 +2,13 @@ import { NextRequest, NextResponse } from 'next/server'
 import { callGemini } from '@/lib/gemini'
 import { getLensSystemPrompt } from '@/lib/prompts'
 import { detectLanguageHint } from '@/lib/languageDetect'
+import { LENS_TYPES } from '@/types'
 import type { LensType, ResultData } from '@/types'
 
 const MIN_TEXT_LENGTH = 50
 const MAX_TEXT_LENGTH = 5000
+const GLOSSARY_MIN = 3
+const GLOSSARY_MAX = 6
 
 function isValidResultData(data: unknown): data is ResultData {
   if (!data || typeof data !== 'object') return false
@@ -14,7 +17,13 @@ function isValidResultData(data: unknown): data is ResultData {
   if (typeof d.dyslexiaFriendlyText !== 'string' || !d.dyslexiaFriendlyText) return false
   if (typeof d.culturalAnalogy !== 'string' || !d.culturalAnalogy) return false
   if (typeof d.examBoundary !== 'string' || !d.examBoundary) return false
-  if (!Array.isArray(d.bilingualGlossary) || d.bilingualGlossary.length === 0) return false
+  if (
+    !Array.isArray(d.bilingualGlossary) ||
+    d.bilingualGlossary.length < GLOSSARY_MIN ||
+    d.bilingualGlossary.length > GLOSSARY_MAX
+  ) {
+    return false
+  }
 
   for (const item of d.bilingualGlossary) {
     if (
@@ -34,7 +43,7 @@ function isValidResultData(data: unknown): data is ResultData {
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json()
-    const { text, lens } = body as { text?: string; lens?: LensType }
+    const { text, lens } = body as { text?: string; lens?: string }
 
     if (!text || typeof text !== 'string') {
       return NextResponse.json(
@@ -64,8 +73,16 @@ export async function POST(request: NextRequest) {
       )
     }
 
+    if (!(LENS_TYPES as readonly string[]).includes(lens)) {
+      return NextResponse.json(
+        { success: false, error: `Lensa budaya tidak dikenali: "${lens}".` },
+        { status: 400 }
+      )
+    }
+
+    const validLens = lens as LensType
     const detectedLanguage = detectLanguageHint(text)
-    const systemPrompt = getLensSystemPrompt(lens, detectedLanguage)
+    const systemPrompt = getLensSystemPrompt(validLens, detectedLanguage)
 
     const rawResponse = await callGemini({
       userPrompt: text,
@@ -85,8 +102,11 @@ export async function POST(request: NextRequest) {
     }
 
     return NextResponse.json({ success: true, data: parsed as ResultData })
-  } catch (error: any) {
-    console.error('[Generate-Lens] Error:', error?.message || error)
+  } catch (error: unknown) {
+    const message =
+      error instanceof Error ? error.message : 'Gagal menghasilkan analisis. Silakan coba lagi.'
+
+    console.error('[Generate-Lens] Error:', message)
 
     if (error instanceof SyntaxError) {
       return NextResponse.json(
@@ -95,12 +115,6 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    return NextResponse.json(
-      {
-        success: false,
-        error: error?.message || 'Gagal menghasilkan analisis. Silakan coba lagi.',
-      },
-      { status: 500 }
-    )
+    return NextResponse.json({ success: false, error: message }, { status: 500 })
   }
 }

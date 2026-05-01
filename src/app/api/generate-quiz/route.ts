@@ -2,11 +2,14 @@ import { NextRequest, NextResponse } from 'next/server'
 import { callGemini } from '@/lib/gemini'
 import { getQuizSystemPrompt } from '@/lib/prompts'
 import { detectLanguageHint } from '@/lib/languageDetect'
+import { LENS_TYPES } from '@/types'
 import type { LensType, QuizItem } from '@/types'
 
 const MIN_TEXT_LENGTH = 50
 const MAX_TEXT_LENGTH = 5000
+const EXPECTED_QUIZ_COUNT = 3
 const VALID_ANSWERS = new Set(['A', 'B', 'C', 'D'])
+const VALID_DIFFICULTIES = new Set(['mudah', 'sedang', 'sulit'])
 
 function isValidQuizItem(item: unknown): item is QuizItem {
   if (!item || typeof item !== 'object') return false
@@ -17,19 +20,20 @@ function isValidQuizItem(item: unknown): item is QuizItem {
   if (q.options.some((o: unknown) => typeof o !== 'string' || !o)) return false
   if (typeof q.correctAnswer !== 'string' || !VALID_ANSWERS.has(q.correctAnswer)) return false
   if (typeof q.culturalExplanation !== 'string' || !q.culturalExplanation) return false
+  if (typeof q.difficulty !== 'string' || !VALID_DIFFICULTIES.has(q.difficulty)) return false
 
   return true
 }
 
 function isValidQuizArray(data: unknown): data is QuizItem[] {
-  if (!Array.isArray(data) || data.length === 0) return false
+  if (!Array.isArray(data) || data.length !== EXPECTED_QUIZ_COUNT) return false
   return data.every(isValidQuizItem)
 }
 
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json()
-    const { text, lens } = body as { text?: string; lens?: LensType }
+    const { text, lens } = body as { text?: string; lens?: string }
 
     if (!text || typeof text !== 'string') {
       return NextResponse.json(
@@ -59,8 +63,16 @@ export async function POST(request: NextRequest) {
       )
     }
 
+    if (!(LENS_TYPES as readonly string[]).includes(lens)) {
+      return NextResponse.json(
+        { success: false, error: `Lensa budaya tidak dikenali: "${lens}".` },
+        { status: 400 }
+      )
+    }
+
+    const validLens = lens as LensType
     const detectedLanguage = detectLanguageHint(text)
-    const systemPrompt = getQuizSystemPrompt(lens, detectedLanguage)
+    const systemPrompt = getQuizSystemPrompt(validLens, detectedLanguage)
 
     const rawResponse = await callGemini({
       userPrompt: text,
@@ -80,8 +92,11 @@ export async function POST(request: NextRequest) {
     }
 
     return NextResponse.json({ success: true, data: parsed as QuizItem[] })
-  } catch (error: any) {
-    console.error('[Generate-Quiz] Error:', error?.message || error)
+  } catch (error: unknown) {
+    const message =
+      error instanceof Error ? error.message : 'Gagal menghasilkan kuis. Silakan coba lagi.'
+
+    console.error('[Generate-Quiz] Error:', message)
 
     if (error instanceof SyntaxError) {
       return NextResponse.json(
@@ -90,12 +105,6 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    return NextResponse.json(
-      {
-        success: false,
-        error: error?.message || 'Gagal menghasilkan kuis. Silakan coba lagi.',
-      },
-      { status: 500 }
-    )
+    return NextResponse.json({ success: false, error: message }, { status: 500 })
   }
 }
