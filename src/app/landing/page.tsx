@@ -170,13 +170,17 @@ export default function LandingPage() {
 
         {/* Desktop Menu */}
         <div className="hidden md:flex items-center gap-10">
-          {['Fitur', 'Lensa', 'Who It\'s For'].map(item => (
+          {[
+            { label: 'Fitur', id: 'features' },
+            { label: 'Lensa', id: 'lenses' },
+            { label: 'Untuk Siapa', id: 'personas' }
+          ].map(item => (
             <a
-              key={item}
-              href={`#${item.toLowerCase().replace(/\s/g, '-')}`}
+              key={item.id}
+              href={`#${item.id}`}
               className="text-sm font-medium text-lentera-text-secondary hover:text-lentera-green transition-colors"
             >
-              {item}
+              {item.label}
             </a>
           ))}
           <Link href="/app" className="bg-lentera-green text-lentera-bg px-6 py-2.5 rounded-xl font-display font-bold text-sm hover:scale-[1.03] hover:bg-green-300 transition-all duration-200">
@@ -197,14 +201,18 @@ export default function LandingPage() {
         {/* Mobile Menu Overlay */}
         <div className={`fixed inset-0 bg-lentera-bg/95 backdrop-blur-2xl z-[-1] transition-all duration-500 ease-in-out md:hidden ${isMenuOpen ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-full pointer-events-none'}`}>
           <div className="flex flex-col items-center justify-center h-full gap-8 px-8">
-            {['Fitur', 'Lensa', 'Who It\'s For'].map(item => (
+            {[
+              { label: 'Fitur', id: 'features' },
+              { label: 'Lensa', id: 'lenses' },
+              { label: 'Untuk Siapa', id: 'personas' }
+            ].map(item => (
               <a
-                key={item}
-                href={`#${item.toLowerCase().replace(/\s/g, '-')}`}
+                key={item.id}
+                href={`#${item.id}`}
                 onClick={() => setIsMenuOpen(false)}
                 className="text-2xl font-display font-bold text-lentera-text hover:text-lentera-green transition-colors"
               >
-                {item}
+                {item.label}
               </a>
             ))}
             <Link 
