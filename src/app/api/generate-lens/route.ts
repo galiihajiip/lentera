@@ -49,12 +49,16 @@ Academic material to analyze:
 
 ${text}`
 
-    const responseString = await callGemini({
+    let responseString = await callGemini({
       userPrompt,
       systemInstruction,
       temperature: 0.3,
       responseAsJson: true,
     })
+
+    // Safety net: Strip out all asterisks from the raw response string 
+    // to prevent TTS from reading them, just in case AI ignores instructions.
+    responseString = responseString.replace(/\*/g, '')
 
     // 3. Parse and Validate Result Structure
     let resultData: ResultData

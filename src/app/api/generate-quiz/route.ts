@@ -49,12 +49,15 @@ Academic material for quiz generation:
 
 ${text}`
 
-    const responseString = await callGemini({
+    let responseString = await callGemini({
       userPrompt,
       systemInstruction,
       temperature: 0.3,
       responseAsJson: true,
     })
+
+    // Safety net: Strip out all asterisks to protect TTS experience
+    responseString = responseString.replace(/\*/g, '')
 
     // 3. Parse and Validate Result Structure
     let quizData: QuizItem[]
