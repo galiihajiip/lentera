@@ -95,6 +95,37 @@ Jika ada prompt/pengguna meminta menambahkan budaya non-Indonesia, agent harus
   gambar/audio multimodal ke Gemini. Warning "Experiments (use with caution)"
   bisa diabaikan — fitur stabil, hanya sub-option-nya yang masih experimental.
 
+### 3.4 ESM Project (`"type": "module"`)
+
+- `package.json` punya `"type": "module"` agar `tailwind.config.ts` & file
+  config lain di-parse sebagai ESM tanpa Node warning
+  `MODULE_TYPELESS_PACKAGE_JSON`. Jangan hapus.
+- Semua config baru WAJIB pakai sintaks ESM (`import`/`export`), bukan
+  `require`/`module.exports`. File `.mjs` boleh; file `.cjs` hanya kalau
+  benar-benar perlu CommonJS.
+
+### 3.5 Vulnerability `npm audit` (Diterima Sementara)
+
+`npm audit` melaporkan 7 vulnerability (5 high, 2 moderate) yang **semuanya
+berasal dari sub-deps `@ducanh2912/next-pwa`**:
+
+- `serialize-javascript ≤ 7.0.4` (high) → di `workbox-webpack-plugin`
+- `postcss < 8.5.10` (moderate) → di Next.js dependency tree
+- `@rollup/plugin-terser` → di `workbox-build`
+
+**Mengapa tidak di-fix:** `npm audit fix --force` akan mendowngrade
+Next.js ke 9.x (breaking) atau mengganti library PWA. Tidak ada patch
+upstream yang aman saat ini. Risiko praktis untuk LENTERA rendah karena:
+
+1. `serialize-javascript` hanya dipakai di build-time (Workbox), bukan runtime.
+2. `postcss` hanya dipakai di build-time.
+3. Tidak ada user input yang mengalir ke library yang vulnerable.
+
+Re-evaluasi setiap kali `@ducanh2912/next-pwa` rilis versi baru (sekarang
+10.2.9, latest). Catat tanggal review terakhir di sini:
+
+- **Last reviewed:** 2026-05-01 — dipertahankan, tidak ada patch upstream.
+
 ---
 
 ## 4. Struktur Folder
@@ -102,22 +133,49 @@ Jika ada prompt/pengguna meminta menambahkan budaya non-Indonesia, agent harus
 ```
 lentera/
 ├── public/
-│   ├── icons/          ← icon PWA (192, 512)
-│   ├── images/         ← aset gambar UI (.gitkeep)
-│   ├── manifest.json   ← PWA manifest (LENTERA brand)
-│   └── *.svg           ← bawaan create-next-app
+│   ├── icons/
+│   │   ├── icon-192.png           ← PWA, maskable safe-zone benar
+│   │   ├── icon-512.png           ← PWA, maskable safe-zone benar
+│   │   ├── icon-source-1024.png   ← sumber render high-res
+│   │   └── apple-touch-icon.png   ← iOS Add-to-Home-Screen 180x180
+│   ├── images/                    ← aset gambar UI (.gitkeep)
+│   ├── manifest.json              ← PWA manifest (LENTERA brand)
+│   └── (sw.js, workbox-*.js)      ← di-generate saat build, di-.gitignore
 ├── scripts/
-│   └── make_placeholder_icons.py  ← regen icon: `uv run scripts/make_placeholder_icons.py`
+│   └── make_placeholder_icons.py  ← regen icon LENTERA: `uv run scripts/make_placeholder_icons.py`
 ├── src/
-│   ├── app/            ← App Router (page, layout, globals.css)
-│   ├── types/          ← LensType, ResultData, QuizItem, HistoryEntry, dll.
-│   ├── components/     ← (akan dibuat)
-│   ├── store/          ← Zustand store (akan dibuat)
-│   └── lib/            ← util, gemini client, dll. (akan dibuat)
-├── tailwind.config.ts  ← palette LENTERA, fonts, keyframes
-├── next.config.ts      ← PWA wrapper + serverActions
-└── .env.local          ← GEMINI_API_KEY (jangan commit)
+│   ├── app/
+│   │   ├── layout.tsx             ← root layout (BLOK 2 akan revamp)
+│   │   ├── page.tsx               ← halaman utama
+│   │   ├── globals.css            ← Tailwind v4 + LENTERA utilities
+│   │   ├── favicon.ico            ← multi-size 16/32/48/64/128/256
+│   │   ├── robots.ts              ← /robots.txt (App Router metadata route)
+│   │   └── sitemap.ts             ← /sitemap.xml
+│   ├── types/                     ← LensType (85 budaya), ResultData, dll.
+│   ├── components/                ← UI components (.gitkeep, akan diisi)
+│   ├── store/                     ← Zustand store (.gitkeep, BLOK 2)
+│   ├── hooks/                     ← custom hooks (.gitkeep)
+│   └── lib/                       ← util, gemini client (.gitkeep)
+├── tailwind.config.ts             ← palette LENTERA, fonts, keyframes
+├── next.config.ts                 ← PWA wrapper + serverActions + turbopack:{}
+├── package.json                   ← "type": "module"
+├── README.md                      ← branding LENTERA
+├── AGENTS.md                      ← dokumen ini
+├── .env.local                     ← GEMINI_API_KEY (jangan commit)
+└── .env.local.example             ← template untuk dev baru
 ```
+
+### 4.1 Konvensi tambahan
+
+- **`.gitkeep`** dipakai di folder kosong (`src/store/`, `src/lib/`,
+  `src/components/`, `src/hooks/`, `public/images/`). Hapus saat ada file
+  pertama di folder tersebut.
+- **Base URL** untuk robots/sitemap: `process.env.NEXT_PUBLIC_SITE_URL`
+  (fallback `http://localhost:3000` di dev).
+- **Icons baru**: tambah ke `public/icons/` lalu update referensi di
+  `manifest.json` & metadata. Semua icon LENTERA dihasilkan dari
+  `scripts/make_placeholder_icons.py` (jangan edit manual; edit script lalu
+  re-run).
 
 ---
 
