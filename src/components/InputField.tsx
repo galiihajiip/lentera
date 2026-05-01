@@ -54,7 +54,7 @@ function TeksMode() {
         ref={textareaRef}
         value={inputTeks}
         onChange={(e: ChangeEvent<HTMLTeksAreaElement>) => setInputTeks(e.target.value)}
-        placeholder="Paste your lecture notes, study material, or textbook excerpt here... Minimum 50 characters. You can also upload an image or audio above."
+        placeholder="Tempel catatan kuliah, materi belajar, atau kutipan buku teks di sini... Minimal 50 karakter. Anda juga bisa mengunggah gambar atau audio di atas."
         maxLength={MAX_CHARS + 100}
         className={`w-full min-h-[200px] bg-lentera-bg border rounded-xl p-6 text-base leading-relaxed text-lentera-text-secondary placeholder-lentera-muted resize-none focus:outline-none focus:border-lentera-green-glow focus:ring-1 focus:ring-lentera-green-glow transition-all duration-150 custom-scrollbar
           ${isOverLimit ? 'border-red-500/50' : 'border-lentera-border'}`}
@@ -112,11 +112,11 @@ function DropZone({ mode, accept, onFile, error, isExtracting, previewFile, onCl
           </div>
           {isExtracting ? (
             <span className="text-xs font-bold text-lentera-green animate-pulse flex items-center gap-2">
-              <span className="w-1.5 h-1.5 rounded-full bg-lentera-green" /> Extracting...
+              <span className="w-1.5 h-1.5 rounded-full bg-lentera-green" /> Mengekstrak...
             </span>
           ) : (
             <button type="button" onMouseDown={(e) => { e.stopPropagation(); onClear() }} className="text-xs font-bold px-3 py-1.5 rounded-lg border border-lentera-border text-lentera-muted hover:text-red-400 hover:border-red-500/30 transition-all pointer-events-auto">
-              Clear
+              Hapus
             </button>
           )}
         </div>

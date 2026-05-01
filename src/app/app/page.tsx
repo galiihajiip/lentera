@@ -219,7 +219,7 @@ export default function HomePage() {
 
                 {/* Quick lens suggestions */}
                 <div className="flex flex-wrap justify-center gap-3">
-                  {['🌴 Coba Nusantara', '⛩ Coba Japanese', '⚡ Coba Viking', '🎮 Coba Gamer'].map(s => (
+                  {['🌴 Coba Nusantara', '🕌 Coba Aceh', '🎎 Coba Jawa', '⛵ Coba Bugis'].map(s => (
                     <button key={s}
                       onClick={() => {
                         const label = s.split('Coba ')[1].toLowerCase()
