@@ -1,59 +1,37 @@
-import type { Metadata, Viewport } from 'next'
+import type { Metadata } from 'next'
 import { Sora, Inter } from 'next/font/google'
-import ToastContainer from '@/components/Toast'
 import './globals.css'
+import ToastContainer from '@/components/Toast'
 
-// ─── Font Setup ──────────────────────────────────────────────
-const sora = Sora({
-  subsets: ['latin'],
+// Premium Typography setup
+const sora = Sora({ 
+  subsets: ['latin'], 
   weight: ['400', '600', '700', '800'],
   variable: '--font-sora',
-  display: 'swap',
 })
 
-const inter = Inter({
-  subsets: ['latin'],
+const inter = Inter({ 
+  subsets: ['latin'], 
   weight: ['300', '400', '500', '600'],
   variable: '--font-inter',
-  display: 'swap',
 })
 
-// ─── Metadata ────────────────────────────────────────────────
 export const metadata: Metadata = {
-  title: 'LENTERA — Platform Pembelajaran AI',
-  description:
-    'Platform Pembelajaran Multi-Sensori Adaptif Berbasis AI & Lensa Budaya untuk Mitigasi Stres Akademik. Dibangun oleh Tim UPN Veteran Jawa Timur untuk NITRO 2026.',
-  manifest: '/manifest.json',
-  appleWebApp: {
-    capable: true,
-    statusBarStyle: 'black-translucent',
-    title: 'LENTERA',
-  },
-  icons: {
-    icon: [
-      { url: '/icons/icon-192.png', sizes: '192x192', type: 'image/png' },
-      { url: '/icons/icon-512.png', sizes: '512x512', type: 'image/png' },
-    ],
-    apple: '/icons/apple-touch-icon.png',
-  },
+  title: 'LENTERA: AI Study Companion',
+  description: 'AI-Powered student companion built to simplify complex academic materials.',
 }
 
-export const viewport: Viewport = {
-  themeColor: '#4ade80',
-  width: 'device-width',
-  initialScale: 1,
-  maximumScale: 1,
-}
+import CustomCursor from '@/components/CustomCursor'
 
-// ─── Root Layout ─────────────────────────────────────────────
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode
 }) {
   return (
-    <html lang="id" className={`${sora.variable} ${inter.variable} scroll-smooth`}>
+    <html lang="en" className={`${sora.variable} ${inter.variable} scroll-smooth`}>
       <body className="bg-lentera-bg text-lentera-text min-h-screen antialiased font-body">
+        <CustomCursor />
         {children}
         <ToastContainer />
       </body>

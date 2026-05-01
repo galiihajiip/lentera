@@ -1,120 +1,104 @@
-import { NextRequest, NextResponse } from 'next/server'
+import { NextResponse } from 'next/server'
 import { callGemini } from '@/lib/gemini'
 import { getLensSystemPrompt } from '@/lib/prompts'
-import { detectLanguageHint } from '@/lib/languageDetect'
-import { LENS_TYPES } from '@/types'
 import type { LensType, ResultData } from '@/types'
 
-const MIN_TEXT_LENGTH = 50
-const MAX_TEXT_LENGTH = 5000
-const GLOSSARY_MIN = 3
-const GLOSSARY_MAX = 6
-
-function isValidResultData(data: unknown): data is ResultData {
-  if (!data || typeof data !== 'object') return false
-  const d = data as Record<string, unknown>
-
-  if (typeof d.dyslexiaFriendlyText !== 'string' || !d.dyslexiaFriendlyText) return false
-  if (typeof d.culturalAnalogy !== 'string' || !d.culturalAnalogy) return false
-  if (typeof d.examBoundary !== 'string' || !d.examBoundary) return false
-  if (
-    !Array.isArray(d.bilingualGlossary) ||
-    d.bilingualGlossary.length < GLOSSARY_MIN ||
-    d.bilingualGlossary.length > GLOSSARY_MAX
-  ) {
-    return false
-  }
-
-  for (const item of d.bilingualGlossary) {
-    if (
-      !item ||
-      typeof item !== 'object' ||
-      typeof item.term !== 'string' ||
-      typeof item.englishB1 !== 'string' ||
-      typeof item.localContext !== 'string'
-    ) {
-      return false
-    }
-  }
-
-  return true
-}
-
-export async function POST(request: NextRequest) {
+export async function POST(request: Request) {
   try {
-    const body = await request.json()
-    const { text, lens } = body as { text?: string; lens?: string }
+    // 1. Parsing Body
+    let body: { text?: string; lens?: string }
+    try {
+      body = await request.json()
+    } catch (e) {
+      return NextResponse.json({ error: 'Invalid JSON request body.' }, { status: 400 })
+    }
 
+    const { text, lens } = body
+
+    // Validate Input
     if (!text || typeof text !== 'string') {
+      return NextResponse.json({ error: 'Teks material is invalid or empty.' }, { status: 400 })
+    }
+    const charCount = text.length
+    if (charCount < 50) {
+      return NextResponse.json({ error: 'Teks is too short, minimum 50 characters required.' }, { status: 400 })
+    }
+    if (charCount > 5000) {
+      return NextResponse.json({ error: 'Teks is too long, maximum 5000 characters allowed.' }, { status: 400 })
+    }
+
+    if (!lens) {
       return NextResponse.json(
-        { success: false, error: 'Teks materi wajib disertakan.' },
+        { error: 'Invalid cultural lens.' },
         { status: 400 }
       )
     }
 
-    if (text.length < MIN_TEXT_LENGTH) {
-      return NextResponse.json(
-        { success: false, error: `Teks terlalu pendek. Minimal ${MIN_TEXT_LENGTH} karakter.` },
-        { status: 400 }
-      )
-    }
+    const targetLens = lens as LensType
 
-    if (text.length > MAX_TEXT_LENGTH) {
-      return NextResponse.json(
-        { success: false, error: `Teks terlalu panjang. Maksimal ${MAX_TEXT_LENGTH} karakter.` },
-        { status: 400 }
-      )
-    }
+    // Simple language detection hint
+    const { detectLanguageHint } = await import('@/lib/languageDetect')
+    const detectedLang = detectLanguageHint(text)
 
-    if (!lens || typeof lens !== 'string') {
-      return NextResponse.json(
-        { success: false, error: 'Lensa budaya wajib dipilih.' },
-        { status: 400 }
-      )
-    }
+    // 2. Call Gemini
+    const systemInstruction = getLensSystemPrompt(targetLens)
+    const userPrompt = `DETECTED INPUT LANGUAGE: ${detectedLang}
+Respond entirely in ${detectedLang}.
 
-    if (!(LENS_TYPES as readonly string[]).includes(lens)) {
-      return NextResponse.json(
-        { success: false, error: `Lensa budaya tidak dikenali: "${lens}".` },
-        { status: 400 }
-      )
-    }
+Academic material to analyze:
 
-    const validLens = lens as LensType
-    const detectedLanguage = detectLanguageHint(text)
-    const systemPrompt = getLensSystemPrompt(validLens, detectedLanguage)
+${text}`
 
-    const rawResponse = await callGemini({
-      userPrompt: text,
-      systemInstruction: systemPrompt,
-      responseAsJson: true,
+    const responseString = await callGemini({
+      userPrompt,
+      systemInstruction,
       temperature: 0.3,
+      responseAsJson: true,
     })
 
-    const parsed: unknown = JSON.parse(rawResponse)
+    // 3. Parse and Validate Result Structure
+    let resultData: ResultData
+    try {
+      resultData = JSON.parse(responseString) as ResultData
 
-    if (!isValidResultData(parsed)) {
-      console.error('[Generate-Lens] Struktur respons tidak valid:', rawResponse)
+      // Validate required properties in JSON
+      if (
+        typeof resultData.dyslexiaFriendlyTeks !== 'string' ||
+        typeof resultData.culturalAnalogy !== 'string' ||
+        typeof resultData.examBoundary !== 'string' ||
+        !Array.isArray(resultData.bilingualGlossary)
+      ) {
+        throw new Error('Required properties are missing.')
+      }
+
+    } catch (parseError) {
+      // If JSON result is messed up due to model or parsing fail
+      console.error('[Generate-Lens] Invalid completion JSON:', parseError, responseString)
       return NextResponse.json(
-        { success: false, error: 'Respons AI tidak sesuai format. Silakan coba lagi.' },
-        { status: 502 }
+        { error: 'AI returned an unrecognized format.' },
+        { status: 500 }
       )
     }
 
-    return NextResponse.json({ success: true, data: parsed as ResultData })
-  } catch (error: unknown) {
-    const message =
-      error instanceof Error ? error.message : 'Gagal menghasilkan analisis. Silakan coba lagi.'
+    // 4. Return Success Output
+    return NextResponse.json({ success: true, data: resultData }, { status: 200 })
 
-    console.error('[Generate-Lens] Error:', message)
+  } catch (error: any) {
+    // 5. Catch all scattered Errors
+    console.error('[Generate-Lens] Error:', error)
 
-    if (error instanceof SyntaxError) {
+    const errorMessage = error instanceof Error ? error.message : String(error)
+
+    if (errorMessage.includes('429')) {
       return NextResponse.json(
-        { success: false, error: 'Body request harus berupa JSON yang valid.' },
-        { status: 400 }
+        { error: 'Too many requests (Quota Exceeded or Rate Limited). Please try again later.' },
+        { status: 429 }
       )
     }
 
-    return NextResponse.json({ success: false, error: message }, { status: 500 })
+    return NextResponse.json(
+      { error: 'An error occurred on the AI server: ' + errorMessage },
+      { status: 500 }
+    )
   }
 }

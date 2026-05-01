@@ -1,43 +1,43 @@
 'use client'
 
 import { useLenteraStore } from '@/store/useLenteraStore'
-import { X, CheckCircle, AlertCircle, Info, AlertTriangle } from 'lucide-react'
 
-const TOAST_ICONS = {
-  success: CheckCircle,
-  error: AlertCircle,
-  info: Info,
-  warning: AlertTriangle,
-}
-
-const TOAST_COLORS = {
-  success: 'border-lentera-green bg-lentera-green-subtle/20 text-lentera-green-text',
-  error: 'border-red-500/50 bg-red-900/20 text-red-200',
-  info: 'border-blue-500/50 bg-blue-900/20 text-blue-200',
-  warning: 'border-lentera-warning-soft/50 bg-yellow-900/20 text-yellow-200',
-}
-
-export default function ToastContainer() {
+export default function Toast() {
   const { toasts, removeToast } = useLenteraStore()
 
-  if (toasts.length === 0) return null
-
   return (
-    <div className="fixed bottom-6 right-6 z-[9999] flex flex-col gap-3 max-w-sm">
+    <div className="fixed bottom-6 right-6 z-50 flex flex-col gap-3 pointer-events-none">
       {toasts.map((toast) => {
-        const Icon = TOAST_ICONS[toast.type]
+        let colors = ''
+        let icon = ''
+        
+        if (toast.type === 'success') {
+          colors = 'bg-lentera-green-subtle border-lentera-green-dim text-lentera-green-text'
+          icon = '✓'
+        } else if (toast.type === 'error') {
+          colors = 'bg-[#4c1d1d] border-red-500 text-red-200'
+          icon = '⚠️'
+        } else {
+          colors = 'bg-lentera-surface2 border-lentera-border text-lentera-text'
+          icon = 'ℹ️'
+        }
+
         return (
           <div
             key={toast.id}
-            className={`flex items-start gap-3 p-4 rounded-xl border backdrop-blur-xl animate-slide-in shadow-2xl ${TOAST_COLORS[toast.type]}`}
+            className={`pointer-events-auto flex items-center gap-3 w-80 px-4 py-3 rounded-lg border shadow-lg backdrop-blur-md animate-fade-in-up ${colors}`}
           >
-            <Icon className="w-5 h-5 shrink-0 mt-0.5" />
-            <p className="text-sm font-medium flex-1 leading-relaxed">{toast.message}</p>
+            <span className="text-sm shrink-0 flex items-center justify-center w-6 h-6 rounded-full bg-black/20">
+              {icon}
+            </span>
+            <p className="text-xs font-semibold leading-relaxed flex-1 pt-[1px] font-body mr-1">
+              {toast.message}
+            </p>
             <button
               onClick={() => removeToast(toast.id)}
-              className="shrink-0 p-1 rounded-lg hover:bg-white/10 transition-colors"
+              className="text-xs shrink-0 w-6 h-6 flex items-center justify-center rounded hover:bg-black/20 transition-colors opacity-70 hover:opacity-100"
             >
-              <X className="w-4 h-4" />
+              ✕
             </button>
           </div>
         )

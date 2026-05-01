@@ -1,27 +1,37 @@
-/**
- * Deteksi bahasa sederhana berdasarkan kata-kata umum.
- * Default: Indonesian jika tidak terdeteksi.
- */
 export function detectLanguageHint(text: string): string {
-  const lower = text.toLowerCase()
-  const tokens = lower.split(/\s+/)
-
-  const langPatterns: Record<string, string[]> = {
-    Indonesian: ['yang', 'adalah', 'dan', 'untuk', 'ini', 'itu', 'dari', 'dengan', 'pada', 'tidak', 'juga', 'akan', 'bisa', 'harus', 'dapat', 'telah', 'sudah', 'masih', 'seperti', 'oleh'],
-    English: ['the', 'is', 'are', 'was', 'were', 'have', 'has', 'been', 'will', 'would', 'could', 'should', 'this', 'that', 'with', 'from', 'they', 'their', 'which', 'about'],
-    Malay: ['ialah', 'tetapi', 'kerana', 'serta', 'bagi', 'oleh', 'sahaja', 'iaitu', 'pula', 'telah'],
+  if (/[\u0600-\u06FF]/.test(text)) return 'Arabic'
+  if (/[\u4E00-\u9FFF]/.test(text)) return 'Chinese (Mandarin)'
+  if (/[\u3040-\u309F\u30A0-\u30FF]/.test(text)) return 'Japanese'
+  if (/[\uAC00-\uD7AF]/.test(text)) return 'Korean'
+  if (/[\u0E00-\u0E7F]/.test(text)) return 'Thai'
+  if (/[\u0400-\u04FF]/.test(text)) return 'Russian'
+  if (/[\u0900-\u097F]/.test(text)) return 'Hindi'
+  if (/[\u0600-\u06FF\u0750-\u077F]/.test(text)) return 'Arabic'
+  
+  // Latin script language detection
+  const words = text.toLowerCase().split(/\s+/)
+  
+  const markers: Record<string, string[]> = {
+    'Indonesian': ['yang','adalah','dengan','untuk','pada','tidak',
+                   'dari','dan','ini','itu','juga','sudah','akan',
+                   'bisa','saya','kami','kita','mereka','sangat'],
+    'Spanish':    ['que','de','la','el','en','los','es','se','del','las'],
+    'French':     ['que','de','la','le','en','les','est','se','des','une'],
+    'German':     ['die','der','das','ist','ein','eine','und','mit','von'],
+    'Portuguese': ['que','de','da','do','em','os','as','uma','com','não'],
+    'Italian':    ['che','di','la','il','in','gli','è','si','del','una'],
   }
-
-  let bestLang = 'Indonesian'
-  let bestScore = 0
-
-  for (const [lang, words] of Object.entries(langPatterns)) {
-    const score = tokens.filter((t) => words.includes(t)).length / tokens.length
+  
+  let bestLang  = 'English'
+  let bestScore = 0.05  // minimum threshold
+  
+  for (const [lang, wordList] of Object.entries(markers)) {
+    const score = words.filter(w => wordList.includes(w)).length / words.length
     if (score > bestScore) {
       bestScore = score
-      bestLang = lang
+      bestLang  = lang
     }
   }
-
+  
   return bestLang
 }

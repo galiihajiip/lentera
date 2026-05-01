@@ -1,69 +1,109 @@
-import { NextRequest, NextResponse } from 'next/server'
+import { NextResponse } from 'next/server'
 import { callGemini } from '@/lib/gemini'
 import { getMultimodalExtractionPrompt } from '@/lib/prompts'
 
-const ALLOWED_IMAGE_TYPES = ['image/png', 'image/jpeg', 'image/webp']
-const ALLOWED_AUDIO_TYPES = ['audio/mpeg', 'audio/wav', 'audio/ogg', 'audio/webm']
-const MAX_FILE_SIZE = 6 * 1024 * 1024 // 6MB
+// Supported MIME list
+const ALLOWED_MIME = [
+  'image/png',
+  'image/jpeg',
+  'image/jpg',
+  'image/webp',
+  'audio/mpeg',
+  'audio/mp3',
+  'audio/wav',
+  'audio/ogg',
+  'audio/webm',
+  'audio/x-wav',
+]
 
-export async function POST(request: NextRequest) {
+// Max size ~6MB
+const MAX_FILE_SIZE = 6 * 1024 * 1024
+
+export async function POST(request: Request) {
   try {
-    const formData = await request.formData()
-    const file = formData.get('file') as File | null
-    const type = formData.get('type') as string | null
+    // Read input from FormData sent by InputField
+    let file: File | null = null
+    let type: string | null = null
 
-    if (!file || !type) {
+    try {
+      const formData = await request.formData()
+      file = formData.get('file') as File
+      type = formData.get('type') as string // 'image' | 'audio'
+    } catch (e) {
+      return NextResponse.json({ error: 'Failed to read FormData.' }, { status: 400 })
+    }
+
+    if (!file) {
+      return NextResponse.json({ error: 'No file attached.' }, { status: 400 })
+    }
+
+    const mimeType = file.type
+    const fileSize = file.size
+
+    // File type validation
+    if (!ALLOWED_MIME.includes(mimeType)) {
       return NextResponse.json(
-        { success: false, error: 'File dan tipe wajib disertakan.' },
-        { status: 400 }
+        { error: 'Unsupported file format.' },
+        { status: 415 }
       )
     }
 
-    if (type !== 'image' && type !== 'audio') {
+    // Size validation
+    if (fileSize > MAX_FILE_SIZE) {
       return NextResponse.json(
-        { success: false, error: 'Tipe harus "image" atau "audio".' },
-        { status: 400 }
+        { error: 'File size too large. Maximum is 6MB.' },
+        { status: 413 }
       )
     }
 
-    const allowedTypes = type === 'image' ? ALLOWED_IMAGE_TYPES : ALLOWED_AUDIO_TYPES
-    if (!allowedTypes.includes(file.type)) {
-      return NextResponse.json(
-        {
-          success: false,
-          error: `Format file tidak didukung: ${file.type}. Format yang didukung: ${allowedTypes.join(', ')}.`,
-        },
-        { status: 400 }
-      )
-    }
+    // Convert Node.js File (Buffer/ArrayBuffer) to Base64 string
+    const buffer = Buffer.from(await file.arrayBuffer())
+    const fileBase64 = buffer.toString('base64')
 
-    if (file.size > MAX_FILE_SIZE) {
-      return NextResponse.json(
-        { success: false, error: 'Ukuran file melebihi batas maksimal 6MB.' },
-        { status: 400 }
-      )
-    }
+    // Call Gemini (without JSON prompt, just deterministic pure text extract instruction)
+    const systemInstruction = ""
+    const userPrompt = getMultimodalExtractionPrompt()
 
-    const bytes = await file.arrayBuffer()
-    const base64 = Buffer.from(bytes).toString('base64')
-
-    const extractedText = await callGemini({
-      userPrompt: 'Extract all text from this file.',
-      systemInstruction: getMultimodalExtractionPrompt(),
-      includeMedia: {
-        data: base64,
-        mimeType: file.type,
-      },
+    const extractedTeks = await callGemini({
+      userPrompt: userPrompt,
+      systemInstruction: systemInstruction,
+      temperature: 0.1, // deterministic, as close to original material without added hallucinated narrative
       responseAsJson: false,
-      temperature: 0.1,
+      includeMedia: {
+        data: fileBase64,
+        mimeType: mimeType,
+      },
     })
 
-    return NextResponse.json({ success: true, extractedText })
-  } catch (error: unknown) {
-    const message =
-      error instanceof Error ? error.message : 'Gagal memproses file. Silakan coba lagi.'
+    if (!extractedTeks || extractedTeks.trim() === '') {
+      throw new Error('AI could not find or transcribe any text from the file.')
+    }
 
-    console.error('[Process-Multimodal] Error:', message)
-    return NextResponse.json({ success: false, error: message }, { status: 500 })
+    // Return Success Output
+    return NextResponse.json({ success: true, extractedTeks: extractedTeks.trim() }, { status: 200 })
+
+  } catch (error: any) {
+    console.error('[Process-Multimodal] Error:', error)
+
+    const errorMessage = error instanceof Error ? error.message : String(error)
+
+    if (errorMessage.includes('429')) {
+      return NextResponse.json(
+        { error: 'Too many AI requests. Quota exceeded. Try again later.' },
+        { status: 429 }
+      )
+    }
+
+    if (errorMessage.includes('could not find')) {
+      return NextResponse.json(
+        { error: errorMessage },
+        { status: 422 }
+      )
+    }
+
+    return NextResponse.json(
+      { error: 'Failed to extract multimodal content due to server constraints.' },
+      { status: 500 }
+    )
   }
 }

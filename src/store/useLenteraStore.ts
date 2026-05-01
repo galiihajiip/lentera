@@ -12,10 +12,11 @@ import type {
 
 const MAX_HISTORY = 10
 
-// ─── State Shape ─────────────────────────────────────────────
+// ─── State Shape ────────────────────────────────────────────────────────────
+
 interface LenteraState {
   // Input
-  inputText: string
+  inputTeks: string
   selectedLens: LensType
   inputMode: InputMode
 
@@ -23,8 +24,6 @@ interface LenteraState {
   isLoading: boolean
   activeTab: TabType
   toasts: Toast[]
-  isMobileMenuOpen: boolean
-  isSidebarOpen: boolean
 
   // Data
   resultData: ResultData | null
@@ -34,9 +33,10 @@ interface LenteraState {
   history: HistoryEntry[]
 }
 
-// ─── Actions Shape ───────────────────────────────────────────
+// ─── Actions Shape ───────────────────────────────────────────────────────────
+
 interface LenteraActions {
-  setInputText: (text: string) => void
+  setInputTeks: (text: string) => void
   setSelectedLens: (lens: LensType) => void
   setInputMode: (mode: InputMode) => void
   setLoading: (loading: boolean) => void
@@ -45,47 +45,41 @@ interface LenteraActions {
   setQuiz: (quiz: QuizItem[] | null) => void
   addHistory: (entry: HistoryEntry) => void
   clearHistory: () => void
-  removeHistoryItem: (id: string) => void
   addToast: (toast: Omit<Toast, 'id'>) => void
   removeToast: (id: string) => void
-  toggleMobileMenu: () => void
-  toggleSidebar: () => void
-  resetSession: () => void
 }
 
 type LenteraStore = LenteraState & LenteraActions
 
-// ─── Initial State ───────────────────────────────────────────
+// ─── Initial State ────────────────────────────────────────────────────────────
+
 const initialState: LenteraState = {
-  inputText: '',
+  inputTeks: '',
   selectedLens: 'nusantara',
   inputMode: 'text',
   isLoading: false,
   activeTab: 'result',
   toasts: [],
-  isMobileMenuOpen: false,
-  isSidebarOpen: true,
   resultData: null,
   quizData: null,
   history: [],
 }
 
-// ─── Store ───────────────────────────────────────────────────
+// ─── Store ────────────────────────────────────────────────────────────────────
+
 export const useLenteraStore = create<LenteraStore>()(
   persist(
     (set, get) => ({
       ...initialState,
 
       // ── Input ──
-      setInputText: (text) => set({ inputText: text }),
+      setInputTeks: (text) => set({ inputTeks: text }),
       setSelectedLens: (lens) => set({ selectedLens: lens }),
       setInputMode: (mode) => set({ inputMode: mode }),
 
       // ── UI ──
       setLoading: (loading) => set({ isLoading: loading }),
       setActiveTab: (tab) => set({ activeTab: tab }),
-      toggleMobileMenu: () => set((s) => ({ isMobileMenuOpen: !s.isMobileMenuOpen })),
-      toggleSidebar: () => set((s) => ({ isSidebarOpen: !s.isSidebarOpen })),
 
       // ── Data ──
       setResult: (result) => set({ resultData: result }),
@@ -98,15 +92,14 @@ export const useLenteraStore = create<LenteraStore>()(
         set({ history: updated })
       },
       clearHistory: () => set({ history: [] }),
-      removeHistoryItem: (id) => {
-        set((s) => ({ history: s.history.filter((h) => h.id !== id) }))
-      },
 
       // ── Toasts ──
       addToast: (toast) => {
         const id = `toast-${Date.now()}-${Math.random().toString(36).slice(2, 7)}`
         const newToast: Toast = { id, duration: 4000, ...toast }
         set((state) => ({ toasts: [...state.toasts, newToast] }))
+
+        // Auto-remove after duration
         setTimeout(() => {
           get().removeToast(id)
         }, newToast.duration)
@@ -115,20 +108,11 @@ export const useLenteraStore = create<LenteraStore>()(
         set((state) => ({
           toasts: state.toasts.filter((t) => t.id !== id),
         })),
-
-      // ── Reset ──
-      resetSession: () =>
-        set({
-          inputText: '',
-          resultData: null,
-          quizData: null,
-          activeTab: 'result',
-          isLoading: false,
-        }),
     }),
     {
       name: 'lentera-history',
       storage: createJSONStorage(() => localStorage),
+      // Only persist history to localStorage
       partialize: (state) => ({ history: state.history }),
     }
   )

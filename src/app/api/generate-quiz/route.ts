@@ -1,110 +1,119 @@
-import { NextRequest, NextResponse } from 'next/server'
+import { NextResponse } from 'next/server'
 import { callGemini } from '@/lib/gemini'
 import { getQuizSystemPrompt } from '@/lib/prompts'
-import { detectLanguageHint } from '@/lib/languageDetect'
-import { LENS_TYPES } from '@/types'
 import type { LensType, QuizItem } from '@/types'
 
-const MIN_TEXT_LENGTH = 50
-const MAX_TEXT_LENGTH = 5000
-const EXPECTED_QUIZ_COUNT = 3
-const VALID_ANSWERS = new Set(['A', 'B', 'C', 'D'])
-const VALID_DIFFICULTIES = new Set(['mudah', 'sedang', 'sulit'])
-
-function isValidQuizItem(item: unknown): item is QuizItem {
-  if (!item || typeof item !== 'object') return false
-  const q = item as Record<string, unknown>
-
-  if (typeof q.question !== 'string' || !q.question) return false
-  if (!Array.isArray(q.options) || q.options.length !== 4) return false
-  if (q.options.some((o: unknown) => typeof o !== 'string' || !o)) return false
-  if (typeof q.correctAnswer !== 'string' || !VALID_ANSWERS.has(q.correctAnswer)) return false
-  if (typeof q.culturalExplanation !== 'string' || !q.culturalExplanation) return false
-  if (typeof q.difficulty !== 'string' || !VALID_DIFFICULTIES.has(q.difficulty)) return false
-
-  return true
-}
-
-function isValidQuizArray(data: unknown): data is QuizItem[] {
-  if (!Array.isArray(data) || data.length !== EXPECTED_QUIZ_COUNT) return false
-  return data.every(isValidQuizItem)
-}
-
-export async function POST(request: NextRequest) {
+export async function POST(request: Request) {
   try {
-    const body = await request.json()
-    const { text, lens } = body as { text?: string; lens?: string }
+    // 1. Parsing Body
+    let body: { text?: string; lens?: string }
+    try {
+      body = await request.json()
+    } catch (e) {
+      return NextResponse.json({ error: 'Invalid JSON request body.' }, { status: 400 })
+    }
 
+    const { text, lens } = body
+
+    // Validate Input
     if (!text || typeof text !== 'string') {
+      return NextResponse.json({ error: 'Teks material is invalid or empty.' }, { status: 400 })
+    }
+    const charCount = text.length
+    if (charCount < 50) {
+      return NextResponse.json({ error: 'Teks is too short, minimum 50 characters required.' }, { status: 400 })
+    }
+    if (charCount > 5000) {
+      return NextResponse.json({ error: 'Teks is too long, maximum 5000 characters allowed.' }, { status: 400 })
+    }
+
+    if (!lens) {
       return NextResponse.json(
-        { success: false, error: 'Teks materi wajib disertakan.' },
+        { error: 'Invalid cultural lens.' },
         { status: 400 }
       )
     }
 
-    if (text.length < MIN_TEXT_LENGTH) {
-      return NextResponse.json(
-        { success: false, error: `Teks terlalu pendek. Minimal ${MIN_TEXT_LENGTH} karakter.` },
-        { status: 400 }
-      )
-    }
+    const targetLens = lens as LensType
 
-    if (text.length > MAX_TEXT_LENGTH) {
-      return NextResponse.json(
-        { success: false, error: `Teks terlalu panjang. Maksimal ${MAX_TEXT_LENGTH} karakter.` },
-        { status: 400 }
-      )
-    }
+    // Simple language detection hint
+    const { detectLanguageHint } = await import('@/lib/languageDetect')
+    const detectedLang = detectLanguageHint(text)
 
-    if (!lens || typeof lens !== 'string') {
-      return NextResponse.json(
-        { success: false, error: 'Lensa budaya wajib dipilih.' },
-        { status: 400 }
-      )
-    }
+    // 2. Call Gemini
+    const systemInstruction = getQuizSystemPrompt(targetLens)
+    const userPrompt = `DETECTED INPUT LANGUAGE: ${detectedLang}
+Write all quiz content in ${detectedLang}.
 
-    if (!(LENS_TYPES as readonly string[]).includes(lens)) {
-      return NextResponse.json(
-        { success: false, error: `Lensa budaya tidak dikenali: "${lens}".` },
-        { status: 400 }
-      )
-    }
+Academic material for quiz generation:
 
-    const validLens = lens as LensType
-    const detectedLanguage = detectLanguageHint(text)
-    const systemPrompt = getQuizSystemPrompt(validLens, detectedLanguage)
+${text}`
 
-    const rawResponse = await callGemini({
-      userPrompt: text,
-      systemInstruction: systemPrompt,
+    const responseString = await callGemini({
+      userPrompt,
+      systemInstruction,
+      temperature: 0.3,
       responseAsJson: true,
-      temperature: 0.5,
     })
 
-    const parsed: unknown = JSON.parse(rawResponse)
+    // 3. Parse and Validate Result Structure
+    let quizData: QuizItem[]
+    try {
+      quizData = JSON.parse(responseString) as QuizItem[]
 
-    if (!isValidQuizArray(parsed)) {
-      console.error('[Generate-Quiz] Struktur respons tidak valid:', rawResponse)
+      // Ensure output is an Array
+      if (!Array.isArray(quizData)) {
+        throw new Error('Root format must be an Array.')
+      }
+
+      // Ensure there are questions (even if AI miscalculates, at least we check structure per item)
+      if (quizData.length < 1) {
+        throw new Error('Quiz creation failed. Empty array.')
+      }
+
+      // Validate each question
+      quizData.forEach((item, index) => {
+        if (!item.question || typeof item.question !== 'string') {
+          throw new Error(`Question #${index + 1} does not have a valid question string.`)
+        }
+        if (!Array.isArray(item.options) || item.options.length !== 4) {
+          throw new Error(`Question #${index + 1} does not have exactly 4 answer options.`)
+        }
+        if (!['A', 'B', 'C', 'D'].includes(item.correctAnswer)) {
+          throw new Error(`Answer key for question #${index + 1} has an invalid format.`)
+        }
+        if (!item.culturalExplanation || typeof item.culturalExplanation !== 'string') {
+          throw new Error(`Question #${index + 1} does not have a cultural explanation.`)
+        }
+      })
+
+    } catch (parseError) {
+      console.error('[Generate-Quiz] Invalid completion JSON:', parseError, responseString)
       return NextResponse.json(
-        { success: false, error: 'Respons AI tidak sesuai format kuis. Silakan coba lagi.' },
-        { status: 502 }
+        { error: 'AI returned an invalid quiz format.' },
+        { status: 500 }
       )
     }
 
-    return NextResponse.json({ success: true, data: parsed as QuizItem[] })
-  } catch (error: unknown) {
-    const message =
-      error instanceof Error ? error.message : 'Gagal menghasilkan kuis. Silakan coba lagi.'
+    // 4. Return Success Output
+    return NextResponse.json({ success: true, data: quizData }, { status: 200 })
 
-    console.error('[Generate-Quiz] Error:', message)
+  } catch (error: any) {
+    // 5. Catch all Service Errors
+    console.error('[Generate-Quiz] Error:', error)
 
-    if (error instanceof SyntaxError) {
+    const errorMessage = error instanceof Error ? error.message : String(error)
+
+    if (errorMessage.includes('429')) {
       return NextResponse.json(
-        { success: false, error: 'Body request harus berupa JSON yang valid.' },
-        { status: 400 }
+        { error: 'Too many requests (Quota Exceeded or Rate Limited). Please try again later.' },
+        { status: 429 }
       )
     }
 
-    return NextResponse.json({ success: false, error: message }, { status: 500 })
+    return NextResponse.json(
+      { error: 'An error occurred on the AI server while creating the quiz.' },
+      { status: 500 }
+    )
   }
 }
