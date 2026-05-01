@@ -19,19 +19,16 @@ export default function Footer() {
             <div className="mt-4 space-y-4">
               <div>
                 <p className="text-[10px] text-lentera-muted font-bold uppercase tracking-[0.2em] mb-2">Dikembangkan oleh</p>
-                <div className="flex flex-col gap-1">
+                <div className="flex flex-col gap-1.5">
                   <p className="text-xs text-lentera-text-secondary font-body font-bold">
                     Galih Aji Pangestu
                   </p>
-                  <div className="flex items-center gap-3">
-                    <a href="https://instagram.com/somanjuntk" target="_blank" rel="noopener noreferrer" className="text-[10px] text-lentera-green hover:underline">
-                      IG: @somanjuntk
-                    </a>
-                    <span className="text-lentera-muted text-[10px]">|</span>
-                    <a href="https://somanjuntk.vercel.app" target="_blank" rel="noopener noreferrer" className="text-[10px] text-lentera-green hover:underline">
-                      Portofolio
-                    </a>
-                  </div>
+                  <p className="text-xs text-lentera-text-secondary font-body font-bold">
+                    Sabrina Nurlita Dwi Oktaviani
+                  </p>
+                  <p className="text-xs text-lentera-text-secondary font-body font-bold">
+                    Muhammad Reza Fakhriansah
+                  </p>
                 </div>
               </div>
               <div>
