@@ -1,98 +1,106 @@
-# LENTERA
+<div align="center">
+  <img src="public/images/bagong.png" alt="LENTERA Mascot" width="150"/>
+  <h1>LENTERA 🦅</h1>
+  <p><strong>Pendamping Belajar AI yang Adaptif Secara Budaya & Ramah Aksesibilitas</strong></p>
 
-**Platform Pembelajaran Multi-Sensori Adaptif Berbasis AI & Lensa Budaya untuk Mitigasi Stres Akademik.**
+  <p>
+    <a href="https://lentera-id.vercel.app"><b>Lihat Demo Langsung</b></a>
+    ·
+    <a href="https://github.com/galiihajiip/lentera/issues">Laporkan Bug</a>
+    ·
+    <a href="https://github.com/galiihajiip/lentera/issues">Minta Fitur</a>
+  </p>
+  
+  ![Next.js](https://img.shields.io/badge/Next.js-14-black?logo=next.js)
+  ![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue?logo=typescript)
+  ![TailwindCSS](https://img.shields.io/badge/Tailwind-CSS-38B2AC?logo=tailwind-css)
+  ![Gemini AI](https://img.shields.io/badge/Gemini-2.5%20Flash-orange?logo=google)
+</div>
 
-LENTERA membantu pelajar belajar lewat 85+ lensa budaya Nusantara — dari Sabang sampai Merauke — dengan dukungan AI multimodal (teks, gambar, audio), penyederhanaan teks ramah disleksia, glosarium dwibahasa, dan kuis adaptif.
+<br />
+
+## 🌟 Tentang Proyek
+
+**LENTERA** diciptakan untuk menyelesaikan satu masalah besar dalam dunia akademik: *Setiap mahasiswa memiliki cara berpikir dan pemahaman yang berbeda, tetapi buku teks hanya berbicara dalam satu bahasa yang kaku.*
+
+Oleh karena itu, kami membangun sebuah platform *AI Study Companion* yang dapat menyederhanakan teks akademik yang padat dan rumit menjadi konsep yang jauh lebih mudah dicerna. LENTERA menerjemahkan konsep akademik ke dalam analogi berdasarkan **Lensa Budaya Nusantara** (seperti wayang, budaya pasar, gotong royong) maupun berbagai budaya pop lainnya.
+
+Sistem ini didesain secara khusus bagi pembelajar dengan tantangan **Disleksia**, rentang fokus yang pendek (ADHD), maupun siapa saja yang lebih mudah belajar lewat cerita dan gamifikasi. Proyek ini dikembangkan secara penuh untuk kompetisi **NITRO 2026**.
 
 ---
 
-## Tech Stack
+## ✨ Fitur Utama
 
-- **Next.js 16** (App Router) + **TypeScript 5**
-- **React 19**
-- **Tailwind CSS v4** dengan palette LENTERA strict
-- **Zustand v5** (state management)
-- **`@google/genai`** (Gemini SDK)
-- **`@ducanh2912/next-pwa` v10** (PWA + Workbox)
-- **`lucide-react`** (icon set)
+- 🌴 **Mesin Lensa Budaya**: Ubah materi sulit tentang *mitokondria* menjadi analogi *dapur warung Padang*, atau *superposisi kuantum* menjadi analogi *orkestra gamelan*. 50+ konteks budaya tersedia.
+- 📖 **Antarmuka Ramah Disleksia**: Pemecahan kalimat yang padat menjadi *bullet points* dengan spasi ekstra lebar dan penebalan kata kunci. 
+- 🎮 **Kuis Mikro Gamifikasi**: Bangun kuis 3 pertanyaan interaktif secara otomatis berdasarkan teks yang Anda masukkan, lengkap dengan skor dan *Wawasan Budaya* di akhir sesi.
+- 🔊 **Asisten Audio (Text-to-Speech)**: Dilengkapi lebih dari 20 suara multibahasa. Membantu Anda mendengarkan materi sambil menyorot teks yang dibacakan (*highlight-sync*).
+- 📚 **Glosarium Bilingual Pintar**: Mengekstrak jargon teknis otomatis dan memberikan definisi sederhana (Level B1) beserta konteks lokalnya.
+- 📸 **Input Multimodal**: Gunakan kamera (foto buku teks), unggah rekaman audio dosen, atau tempel materi teks langsung. LENTERA dapat mengekstraknya berkat kekuatan Google Gemini 2.5 Flash Vision.
 
-## Aturan Project
+---
 
-Sebelum kontribusi, **WAJIB baca `AGENTS.md`**. Aturan utamanya:
+## 🛠️ Teknologi yang Digunakan
 
-1. **Konteks budaya 100% Indonesia** (Sabang–Merauke). Tidak ada lensa internasional.
-2. **Bahasa UI**: Bahasa Indonesia.
-3. **Palette ketat**: hanya warna `lentera-*` dari `tailwind.config.ts`. Warna `#facc15` HANYA untuk word-highlight TTS (aksesibilitas disleksia).
-4. **Build**: `npm run build` pakai `--webpack` (PWA butuh `workbox-webpack-plugin`).
-5. **Auto-push** setiap commit ke `main`.
+Proyek LENTERA dibangun menggunakan *tech stack* terkini untuk memastikan performa yang cepat dan desain antarmuka yang sangat dinamis:
 
-## Setup
+* **Framework:** [Next.js 14](https://nextjs.org/) (App Router)
+* **Styling:** [Tailwind CSS 4](https://tailwindcss.com/) dengan dukungan efek *Glassmorphism* dan *Micro-animations*
+* **Bahasa:** [TypeScript](https://www.typescriptlang.org/)
+* **Manajemen State:** [Zustand](https://zustand-demo.pmnd.rs/)
+* **Kecerdasan Buatan (AI):** [Google Gen AI SDK](https://www.npmjs.com/package/@google/genai) (`gemini-2.5-flash`)
+* **Deployment:** [Vercel](https://vercel.com/)
 
-```bash
-# Install deps
-npm install
+---
 
-# Environment (isi GEMINI_API_KEY)
-cp .env.local.example .env.local   # lalu edit
+## 🚀 Panduan Instalasi Lokal
 
-# Dev (Turbopack, PWA disabled di dev)
-npm run dev
+Ingin menjalankan LENTERA secara lokal di mesin Anda? Ikuti langkah-langkah di bawah ini.
 
-# Build production (Webpack, generate Service Worker)
-npm run build && npm start
-```
+### Prasyarat
+- Node.js versi 20 atau lebih baru.
+- Akun Google AI Studio untuk mendapatkan *API Key*.
 
-Buka `http://localhost:3000` untuk melihat aplikasi.
+### Instalasi
 
-## Struktur Folder
+1. **Clone repositori ini**
+   ```bash
+   git clone https://github.com/galiihajiip/lentera.git
+   cd lentera/lentera
+   ```
 
-```
-lentera/
-├── public/
-│   ├── icons/          ← icon PWA (192, 512, apple-touch)
-│   ├── images/         ← aset gambar UI
-│   └── manifest.json   ← PWA manifest
-├── scripts/
-│   └── make_placeholder_icons.py   ← regen icon: uv run scripts/make_placeholder_icons.py
-├── src/
-│   ├── app/            ← App Router (page, layout, globals.css)
-│   ├── types/          ← LensType, ResultData, QuizItem, dll.
-│   ├── store/          ← Zustand store (BLOK 2)
-│   ├── components/     ← UI components (BLOK selanjutnya)
-│   ├── hooks/          ← custom hooks
-│   └── lib/            ← util, gemini client
-├── tailwind.config.ts  ← palette LENTERA
-├── next.config.ts      ← PWA wrapper + serverActions 10mb
-├── AGENTS.md           ← aturan project (WAJIB baca)
-└── .env.local          ← GEMINI_API_KEY (jangan commit)
-```
+2. **Instal dependensi**
+   ```bash
+   npm install
+   ```
 
-## Lensa Budaya (`LensType`)
+3. **Atur Variabel Environment**
+   Buat file bernama `.env.local` di dalam folder *root* proyek Anda (`lentera/lentera`), dan tambahkan *API Key* dari Gemini:
+   ```env
+   GEMINI_API_KEY=KODE_API_KEY_ANDA_DI_SINI
+   ```
 
-85 lensa budaya Nusantara, urut barat → timur:
+4. **Jalankan *Development Server***
+   ```bash
+   npm run dev
+   ```
+   Aplikasi akan berjalan di `http://localhost:3000`.
 
-| Region | Jumlah | Contoh |
-|--------|-------:|--------|
-| Sumatera | 16 | Aceh, Batak Toba/Karo/Mandailing, Minang, Lampung, Nias, Mentawai, … |
-| Jawa | 10 | Mataraman, Banyumasan, Sunda, Cirebon, Betawi, Madura, Tengger, Osing, Baduy, Samin |
-| Bali & Nusa Tenggara | 14 | Bali, Bali Aga, Sasak, Sumbawa, Bima, Manggarai, Sumba, Rote, Atoni Dawan, Lamaholot, … |
-| Kalimantan | 11 | Dayak Kenyah/Iban/Ngaju/Punan/Kayan/Benuaq, Banjar, Kutai, Paser, … |
-| Sulawesi | 13 | Bugis, Makassar, Mandar, Toraja, Minahasa, Sangir-Talaud, Gorontalo, Buton, … |
-| Maluku | 8 | Ambon, Seram, Kei, Tanimbar, Aru, Ternate, Tidore, Tobelo-Galela |
-| Papua | 13 | Asmat, Dani, Lani, Yali, Mee, Amungme, Korowai, Marind, Sentani, Biak, Arfak, Moi, … |
+---
 
-Detail di `src/types/index.ts`.
+## 👨‍💻 Tim Pengembang (Developers)
 
-## Skrip Penting
+LENTERA dikembangkan oleh mahasiswa **Universitas Pembangunan Nasional (UPN) "Veteran" Jawa Timur** untuk kompetisi **NITRO 2026**:
 
-| Skrip | Fungsi |
-|-------|--------|
-| `npm run dev` | Dev server (Turbopack, PWA off) |
-| `npm run build` | Build production (Webpack, PWA on, SW di-generate) |
-| `npm start` | Jalankan build production |
-| `npm run lint` | ESLint |
-| `uv run scripts/make_placeholder_icons.py` | Regenerate icon LENTERA |
+1. **Galih Aji Pangestu** 
+2. **Sabrina Nurlita Dwi Oktaviani** 
+3. **Muhammad Reza Fakhriansah** 
 
-## License
+---
 
-Proprietary. © 2026 LENTERA project. All rights reserved.
+## 📄 Lisensi
+
+Hak Cipta © 2026 LENTERA. Hak Cipta Dilindungi.
+Dibuat oleh mahasiswa, untuk mahasiswa. 
+
+> *“Belajar Serasa Bercerita. Pahami Lewat Budaya. Nyalakan Lentera Pintarmu.”*
