@@ -1,71 +1,37 @@
 export type LensType =
-  // Southeast Asia
+  // Meta
   | 'nusantara'
-  | 'malay'
-  | 'filipino'
-  | 'thai'
-  | 'vietnamese'
-  | 'burmese'
-
-  // East Asia
-  | 'chinese'
-  | 'japanese'
-  | 'korean'
-  | 'taiwanese'
-  | 'mongolian'
-
-  // South Asia
-  | 'indian_hindi'
-  | 'indian_tamil'
-  | 'bengali'
-  | 'nepali'
-  | 'sinhala'
-
-  // Middle East & Islamic World
-  | 'islamic_arabic'
-  | 'islamic_persian'
-  | 'islamic_turkish'
-  | 'islamic_malay'
-  | 'bedouin'
-
-  // Africa
-  | 'west_african'
-  | 'east_african'
-  | 'north_african'
-  | 'south_african'
-  | 'ethiopian'
-
-  // Europe
-  | 'western'
-  | 'nordic'
-  | 'mediterranean'
-  | 'greek_classical'
-  | 'slavic'
-  | 'celtic'
-
-  // Americas
-  | 'latin_american'
-  | 'mexican'
-  | 'andean'
-  | 'native_american'
-  | 'caribbean'
-  | 'north_american'
-
-  // Ancient Civilizations (Timeless)
-  | 'ancient_egyptian'
-  | 'mesopotamian'
-  | 'roman'
-  | 'aztec_maya'
-  | 'viking'
-  | 'hindu_vedic'
-
-  // Special / Cross-cultural
-  | 'gamer'
-  | 'internet'
-  | 'sports_universal'
-  | 'scientific'
-  | 'musical'
-  | 'cyber'
+  
+  // Sumatera
+  | 'aceh' | 'gayo' | 'batak_toba' | 'batak_karo' | 'batak_mandailing' | 'minangkabau' 
+  | 'melayu_riau' | 'melayu_deli' | 'palembang' | 'jambi' | 'lampung' | 'rejang' 
+  | 'kerinci' | 'nias' | 'mentawai' | 'anak_dalam'
+  
+  // Jawa
+  | 'jawa_mataraman' | 'jawa_banyumasan' | 'sunda' | 'cirebon' | 'betawi' | 'madura' 
+  | 'tengger' | 'osing' | 'baduy' | 'samin'
+  
+  // Bali & Nusa Tenggara
+  | 'bali' | 'bali_aga' | 'sasak' | 'sumbawa' | 'bima' | 'manggarai' | 'ngada' 
+  | 'ende_lio' | 'sumba' | 'rote' | 'sabu' | 'atoni_dawan' | 'lamaholot' | 'tetun'
+  
+  // Kalimantan
+  | 'dayak_kenyah' | 'dayak_iban' | 'dayak_ngaju' | 'dayak_punan' | 'dayak_kayan' 
+  | 'dayak_benuaq' | 'banjar' | 'kutai' | 'paser' | 'berau' | 'tidung'
+  
+  // Sulawesi
+  | 'bugis' | 'makassar' | 'mandar' | 'toraja' | 'minahasa' | 'sangir_talaud' 
+  | 'gorontalo' | 'kaili' | 'pamona' | 'buton' | 'muna' | 'tolaki' | 'wakatobi'
+  
+  // Maluku
+  | 'ambon' | 'seram' | 'kei' | 'tanimbar' | 'aru' | 'ternate' | 'tidore' | 'tobelo_galela'
+  
+  // Papua
+  | 'asmat' | 'dani' | 'lani' | 'yali' | 'mee' | 'amungme' | 'kamoro' | 'korowai' 
+  | 'marind' | 'sentani' | 'biak' | 'arfak' | 'moi'
+  
+  // Extra / International (Optional legacy support)
+  | 'japanese' | 'chinese' | 'korean' | 'viking' | 'gamer' | 'cyber' | 'scientific'
 
 export type InputMode = 'text' | 'image' | 'audio'
 export type TabType = 'result' | 'quiz'
