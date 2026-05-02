@@ -241,9 +241,9 @@ export default function LandingPage() {
           </div>
 
           <h1 className="animate-fade-up font-display font-extrabold text-[clamp(42px,6vw,72px)] leading-[1.02] tracking-tight mb-8" style={{ animationDelay: '0.1s' }}>
-            <span className="text-lentera-text">Belajar lebih pintar.</span><br />
-            <span className="text-lentera-green drop-shadow-[0_0_30px_rgba(74,222,128,0.2)]">Pahami lewat budaya.</span><br />
-            <span className="text-lentera-text/50 italic">Berkembang bebas.</span>
+            <span className="text-lentera-text">Belajar Serasa Bercerita.</span><br />
+            <span className="text-lentera-green drop-shadow-[0_0_30px_rgba(74,222,128,0.2)]">Pahami Lewat Budaya.</span><br />
+            <span className="text-lentera-text/50 italic font-light">Nyalakan Lentera Pintarmu.</span>
           </h1>
 
           <p className="animate-fade-up text-lg text-lentera-text-secondary font-light leading-relaxed max-w-[580px] mb-10" style={{ animationDelay: '0.2s' }}>
