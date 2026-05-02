@@ -59,123 +59,132 @@ const JSON_SCHEMA_QUIZ = `\nThe output MUST be a valid JSON array of objects wit
 // ─── Detailed Cultural Instructions ─────────────────────────────────
 
 export const LENS_CULTURAL_INSTRUCTIONS: Record<LensType, string> = {
-  // Southeast Asia
-  nusantara: `Use analogies from Indonesian culture: wayang puppet theater characters (Arjuna for hero, Semar for wisdom), batik making process, gotong royong (communal cooperation), pasar tradisional (traditional market) bargaining, rice paddy farming cycles, gamelan orchestra harmony, and the wisdom of local proverbs (peribahasa).`,
-  malay: `Use Malay cultural references: pantun (four-line poetry structure), adat perpatih (customary law), peribahasa Melayu (Malay proverbs), kampung life, the tradition of musyawarah (consensus), wayang kulit, and classic hikayat stories like Hang Tuah.`,
-  filipino: `Use Filipino cultural concepts: bayanihan (community cooperation: villagers literally carrying a house together), fiesta celebrations, jeepney routes as network metaphors, pakikisama (group harmony), the sari-sari store as a local economy node, and folk heroes like Lapu-Lapu and José Rizal.`,
-  thai: `Use Thai cultural references: the structure of Thai temples (wat) with their hierarchy, merit-making (tam bun) as investment metaphors, the concept of sanuk (fun in everything), elephant as strength symbol, muay thai technique discipline, and the royal patronage system.`,
-  vietnamese: `Use Vietnamese cultural references: rice paddy terracing as layered systems, the Confucian family hierarchy (ông bà cha mẹ), the resilience of the Vietnamese through historical metaphors, lantern festival as signal/broadcast metaphors, and the pho broth as a slow, complex system that builds over time.`,
-  burmese: `Use Myanmar/Burmese culture: the Shwedagon pagoda's layered stupa, the tradition of offering alms, the thanakha face paste preparation, the complex weaving of traditional longyis, and the seasonal water festival (Thingyan) as a metaphor for reset or renewal.`,
+  // ── Meta ──
+  nusantara: `Gunakan analogi umum budaya Indonesia: gotong royong, musyawarah, pasar tradisional, padi di sawah, atau harmoni gamelan. Bahasa: Indonesia yang ramah.`,
 
-  // East Asia
-  chinese: `Use Chinese cultural concepts: Confucian hierarchy and relationships (guanxi), Sun Tzu Art of War strategies, the Silk Road as network infrastructure, dynasty cycles as system lifecycles, Chinese chess (xiangqi) for strategic thinking, and four great inventions (paper, printing, compass, gunpowder) as innovation metaphors.`,
-  japanese: `Use Japanese cultural concepts: bushido (warrior code) for discipline and ethics, wabi-sabi (beauty in imperfection) for approximation/estimation, kaizen (continuous improvement) for iterative processes, the senpai-kohai mentorship system, origami folding as data transformation, and manga narrative arcs for sequential logic.`,
-  korean: `Use Korean cultural concepts: nunchi (reading the room: social intelligence) for context awareness, the ppali-ppali (hurry-hurry) culture for speed/efficiency tradeoffs, K-drama plot twists for unexpected outcomes, the concept of kibun (mood/atmosphere) for state management, and the hierarchical honorific language system (banmal vs jondaemal) for access control metaphors.`,
-  taiwanese: `Use Taiwanese cultural concepts: bustling night markets (shilin) as decentralized distribution, bubble tea mixing as modular systems or chemistry, the blend of traditional values with high-tech semiconductor fabrication, and democratic community-driven problem solving.`,
-  mongolian: `Use Mongolian culture: nomadic steppe lifestyle, moving gers (yurts) as scalable and portable architecture, Genghis Khan's Yam relay system as high-speed data transmission, the relationship with horses, and surviving harsh winters (zud) as system resilience.`,
+  // ── Sumatera ──
+  aceh: `Gunakan budaya Aceh: pinto aceh, tari saman, tradisi ngopi di ulee kareng, atau sejarah kerajaan samudera pasai. Bahasa: Indonesia dengan istilah Aceh atau Bahasa Aceh jika memungkinkan.`,
+  gayo: `Gunakan budaya Gayo: kopi gayo, tari guel, atau filosofi edet (adat) gayo. Bahasa: Indonesia/Aceh Gayo.`,
+  batak_toba: `Gunakan budaya Batak Toba: kain ulos, rumah bolon, marga, atau filosofi dalihan na tolu. Bahasa: Batak Toba/Logat Batak.`,
+  batak_karo: `Gunakan budaya Batak Karo: rumah siwaluh jabu, tari terang bulan, atau gunung sinabung. Bahasa: Batak Karo.`,
+  batak_mandailing: `Gunakan budaya Mandailing: gordang sambilan, bagas godang, atau adat horja. Bahasa: Mandailing.`,
+  minangkabau: `Gunakan budaya Minangkabau: rumah gadang, filosofi alam takambang jadi guru, tradisi merantau, atau kuliner rendang. Bahasa: Minang/Logat Padang.`,
+  melayu_riau: `Gunakan budaya Melayu Riau: pantun, gurindam dua belas, atau sejarah laksamana raja di laut. Bahasa: Melayu Riau/Logat Riau.`,
+  melayu_deli: `Gunakan budaya Melayu Deli: istana maimun, musik ronggeng, atau sejarah kesultanan deli. Bahasa: Melayu Deli/Medan.`,
+  palembang: `Gunakan budaya Palembang: pempek, jembatan ampera, songket, atau sejarah sriwijaya. Bahasa: Palembang/Wong Kito.`,
+  jambi: `Gunakan budaya Jambi: batik jambi, candi muaro jambi, atau sungai batanghari. Bahasa: Jambi.`,
+  lampung: `Gunakan budaya Lampung: tapis lampung, siger, atau aksara kaganga. Bahasa: Lampung.`,
+  rejang: `Gunakan budaya suku Rejang: aksara ka ga nga, kopi kaba, atau adat istiadat rejang bengkulu. Bahasa: Rejang/Bengkulu.`,
+  kerinci: `Gunakan budaya Kerinci: gunung kerinci, tari asyik, atau filosofi 'sepucuk jambi sembilan lurah'. Bahasa: Kerinci.`,
+  nias: `Gunakan budaya Nias: lompat batu (fahombo), rumah omo hada, atau megalitikum. Bahasa: Nias.`,
+  mentawai: `Gunakan budaya Mentawai: tato tradisional, sikerey (dukun), atau selancar ombak mentawai. Bahasa: Mentawai.`,
+  anak_dalam: `Gunakan budaya Suku Anak Dalam: kehidupan rimba, kearifan menjaga hutan, dan kemandirian alam. Bahasa: Indonesia Sederhana.`,
 
-  // South Asia
-  indian_hindi: `Use North Indian cultural references: the Mahabharata's dharma dilemmas (Arjuna's choice) for ethical decisions, cricket strategy (test match patience vs T20 speed) for different approaches, Bollywood narrative arcs, the chai-making process as parameterization, and the guru-shishya tradition for knowledge transfer.`,
-  indian_tamil: `Use South Indian cultural references: Thirukkural couplets as compressed wisdom (two lines that contain entire philosophies), Carnatic music's raga system for structured improvisation, the Bharatanatyam dance's precise mudras for formal syntax, temple gopuram layered architecture for hierarchical systems, and classical Sangam poetry for emotional states.`,
-  bengali: `Use Bengali culture: Rabindranath Tagore's poetic philosophy, the monsoon rains as overwhelming data input vs fertile growth, mustard fields, navigating the Sundarbans mangrove network, and the chaos/efficiency of city cycle-rickshaws.`,
-  nepali: `Use Nepali culture: Kathmandu valley architecture, Sherpa climbing teamwork for guiding through complex tasks, Mount Everest basecamps as staging points, Gurkha bravery, and the spinning of dharma wheels as continuous computation.`,
-  sinhala: `Use Sri Lankan/Sinhala culture: terraced tea plantations, the strategic importance of spice trading ports, Buddhist Jataka tales for morality, Ayurvedic holistic balance, and stilt fishing as a metaphor for specialized, precarious stability.`,
+  // ── Jawa ──
+  jawa_mataraman: `Gunakan budaya Jawa Mataraman (Jogja/Solo): filosofi alon-alon waton kelakon, wayang kulit, atau keraton. Bahasa: Jawa Halus/Kromo/Ngoko.`,
+  jawa_banyumasan: `Gunakan budaya Banyumasan: logat ngapak, mendoan, atau kesenian calung/ebeg. Bahasa: Jawa Ngapak.`,
+  sunda: `Gunakan budaya Sunda: angklung, filosofi silih asah silih asuh, atau kelom geulis. Bahasa: Sunda Halus/Loma.`,
+  cirebon: `Gunakan budaya Cirebon: batik mega mendung, tari topeng, atau keraton kasepuhan. Bahasa: Jawa Cirebonan.`,
+  betawi: `Gunakan budaya Betawi: ondel-ondel, kerak telor, gambang kromong, atau gaya bicara blak-blakan. Bahasa: Betawi/Jakarta.`,
+  madura: `Gunakan budaya Madura: karapan sapi, celurit (filosofi harga diri), atau sate madura. Bahasa: Madura.`,
+  tengger: `Gunakan budaya Tengger: upacara kasada, gunung bromo, atau keteguhan adat Hindu Jawa. Bahasa: Jawa Tengger.`,
+  osing: `Gunakan budaya Osing (Banyuwangi): tari gandrung, kopi seblang, atau batik gajah oling. Bahasa: Jawa Osing.`,
+  baduy: `Gunakan budaya Baduy: kemandirian tanpa teknologi, tas koja, atau filosofi 'lojor teu meunang dipotong'. Bahasa: Sunda Baduy.`,
+  samin: `Gunakan budaya Samin: kejujuran radikal, perlawanan tanpa kekerasan, atau kearifan tani. Bahasa: Jawa Samin.`,
 
-  // Middle East & Islamic
-  islamic_arabic: `Use Islamic and Arabic cultural references: Quran verses and hadith for ethical anchoring (cite respectfully), the 1001 Nights narrative structure for recursion/nesting, ancient Islamic Golden Age scholars (Ibn Sina, Al-Khwarizmi) for academic heritage, desert caravan trade routes for network routing, and the five pillars as a framework metaphor.`,
-  islamic_persian: `Use Persian cultural references: Rumi's Masnavi poetry for spiritual/abstract concepts, Hafez's ghazals for beauty in ambiguity, the Persian carpet's intricate patterns for complex data structures, the chess game (invented in Persia) for strategy, and the ancient Zoroastrian concept of asha (truth/order) vs druj (chaos) for boolean logic.`,
-  islamic_turkish: `Use Turkish culture: Ottoman Empire administrative systems (vilayets), the bustling Grand Bazaar as a marketplace/exchange, hammam processes for purification/filtering, the Bosphorus strait bridging two systems, and Nasreddin Hodja's clever satirical logic puzzles.`,
-  islamic_malay: `Use Malay Islamic culture: local pesantren/pondok education models, the rhythm of selawatan, the synthesis of local indigenous customs with Islamic law, the architecture of tiered mosque roofs, and halal concepts in modern contexts.`,
-  bedouin: `Use Desert Nomad / Bedouin culture: navigating by the stars as absolute positioning, finding oasis springs as resource discovery, the camel's endurance as systemic caching/energy storage, and profound hospitality (diyafa) as open-source sharing.`,
+  // ── Bali & NT ──
+  bali: `Gunakan budaya Bali: upacara ngaben, subak (irigasi), ogoh-ogoh, atau filosofi tri hita karana. Bahasa: Bali/Logat Bali.`,
+  bali_aga: `Gunakan budaya Bali Aga (Trunyan/Tenganan): tradisi kuno, tenun gringsing, atau pemakaman pohon. Bahasa: Bali Kuno.`,
+  sasak: `Gunakan budaya Sasak: kain tenun sasak, peresean (adu ketangkasan), atau rumah bale tani. Bahasa: Sasak.`,
+  sumbawa: `Gunakan budaya Sumbawa: balap kerbau (barapan kebo), istana dalam loka, atau madu sumbawa. Bahasa: Sumbawa.`,
+  bima: `Gunakan budaya Bima Mbojo: tradisi rimpu, kuda bima, atau sejarah kesultanan bima. Bahasa: Bima.`,
+  manggarai: `Gunakan budaya Manggarai: rumah adat mbaru niang, tari caci, atau kopi flores. Bahasa: Manggarai.`,
+  ngada: `Gunakan budaya Ngada: kampung adat bena, megalitikum, atau tenun ikat bajawa. Bahasa: Ngada.`,
+  ende_lio: `Gunakan budaya Ende-Lio: danau kelimutu, tenun ikat lio, atau sejarah pengasingan Bung Karno. Bahasa: Lio.`,
+  sumba: `Gunakan budaya Sumba: tradisi pasola, rumah menara, atau tenun ikat sumba. Bahasa: Sumba.`,
+  rote: `Gunakan budaya Rote: sasando, topi ti’i langga, atau gula air (lontar). Bahasa: Rote.`,
+  sabu: `Gunakan budaya Sabu: upacara hodo, tenun ikat sabu, atau kearifan laut. Bahasa: Sabu.`,
+  atoni_dawan: `Gunakan budaya Atoni Dawan (Timor): rumah lopo, adat sapaan, atau pertanian lahan kering. Bahasa: Dawan.`,
+  lamaholot: `Gunakan budaya Lamaholot (Flores Timur): tradisi berburu paus (lamalera), tenun ikat, atau kerukunan agama. Bahasa: Lamaholot.`,
+  tetun: `Gunakan budaya Tetun: tari likurai, sejarah perbatasan, atau kain tais. Bahasa: Tetun.`,
 
-  // Africa
-  west_african: `Use West African cultural references: Ubuntu philosophy ('I am because we are') for distributed systems and interdependence, the griot (oral historian/storyteller) as a database/memory metaphor, kente cloth weaving patterns as data patterns, talking drums as network communication, and the Anansi spider trickster stories for clever algorithms.`,
-  east_african: `Use East African culture: Swahili coastal trade language as a bridging protocol, the vast Serengeti savanna migrations as data flow, Maasai jumping rituals as energy potential, and distance marathon running as long-term sustainable processing.`,
-  north_african: `Use North African culture: the stark division between the Sahara and the fertile coast, the Kasbah fortresses as local security, the bustling souks of Marrakech, and the explorations of Ibn Battuta crossing domains.`,
-  south_african: `Use South African culture: the 'Rainbow Nation' diversity as a multi-threaded cooperative system, the veld survival, the truth and reconciliation process as conflict resolution algorithms, and indigenous Khoisan harmonizing with nature.`,
-  ethiopian: `Use Ethiopian culture: the intricate Ethiopian coffee ceremony as a multi-step structured process, the rock-hewn churches of Lalibela as monolithic architecture, the Solomonic dynasty legacy, and holding the only un-colonized African sovereignty as robust independence.`,
+  // ── Kalimantan ──
+  dayak_kenyah: `Gunakan budaya Dayak Kenyah: tari kancet papatai, rumah lamin, atau ukiran khas dayak. Bahasa: Kenyah.`,
+  dayak_iban: `Gunakan budaya Dayak Iban: rumah panjai (rumah panjang), tato tradisional, atau tenun pua kumbu. Bahasa: Iban.`,
+  dayak_ngaju: `Gunakan budaya Dayak Ngaju: tiwah (upacara kematian), batang garing (pohon kehidupan), atau sungai kahayan. Bahasa: Ngaju.`,
+  dayak_punan: `Gunakan budaya Dayak Punan: nomaden hutan, kearifan bertahan hidup, atau sumpit tradisional. Bahasa: Punan.`,
+  dayak_kayan: `Gunakan budaya Dayak Kayan: telinga panjang, kerajinan manik, atau sejarah sungai mahakam. Bahasa: Kayan.`,
+  dayak_benuaq: `Gunakan budaya Dayak Benuaq: tari gantar, pengobatan belian, atau tenun doyo. Bahasa: Benuaq.`,
+  banjar: `Gunakan budaya Banjar: pasar terapung, intan martapura, atau pantun banjar. Bahasa: Banjar.`,
+  kutai: `Gunakan budaya Kutai: erau, kesultanan kutai kartanegara, atau sungai mahakam. Bahasa: Kutai.`,
+  paser: `Gunakan budaya Paser: tari belian sentiyu, sejarah kerajaan sadurengas, atau kearifan pesisir. Bahasa: Paser.`,
+  berau: `Gunakan budaya Berau: kesultanan gunung tabur, penyu derawan, atau kuliner khas berau. Bahasa: Berau.`,
+  tidung: `Gunakan budaya Tidung: tari jepen, mahkota singal, atau sejarah pesisir utara kalimantan. Bahasa: Tidung.`,
 
-  // Europe
-  western: `Use the 'Western' (Modern Western) cultural style. Use analogies familiar with modern pop culture or westernization: Netflix movie references, tech startup/Silicon Valley work culture, modern coffee shop vibes, or sports analogies like American Football or NBA basketball.`,
-  nordic: `Use Nordic cultural references: the concept of lagom (not too much, not too little: just right) for optimization, hygge (cozy atmosphere) for user experience, Viking longship crew coordination for distributed teamwork, Norse mythology's Yggdrasil (world tree) for tree data structures, and the Viking rune alphabet.`,
-  mediterranean: `Use Mediterranean (Italy/Spain/Greece) culture: the concept of the siesta for systemic downtime/garbage collection, the intricate art of olive oil pressing, the chaotic but functional piazza traffic, and the slow-food movement as deep processing.`,
-  greek_classical: `Use Ancient Greek cultural references: the Socratic method (elenchus) for debugging/validation, the agora (public square debate) for peer review, Greek mythology characters as archetypes (Prometheus for innovation, Sisyphus for infinite loops), and Olympic Games competition for optimization.`,
-  slavic: `Use Slavic/Eastern European culture: the intricate nesting of Matryoshka dolls for recursive functions, the harsh resilience built through freezing banya (sauna) dips, the space race (Sputnik) for technological leaps, and chess mastery for deep computational lookahead.`,
-  celtic: `Use Celtic (Ireland/Scotland/Wales) culture: the oral storytelling traditions in local pubs, the intricate Celtic knot for endless interconnected loops, navigating unpredictable thick mists as handling uncertainty, and the druidic alignment with natural cycles.`,
+  // ── Sulawesi ──
+  bugis: `Gunakan budaya Bugis: perahu phinisi, filosofi siri' na pace, sarung sutera, atau sejarah sawerigading. Bahasa: Bugis/Logat Makassar.`,
+  makassar: `Gunakan budaya Makassar: benteng rotterdam, coto makassar, atau sejarah kerajaan gowa-tallo. Bahasa: Makassar/Logat Makassar.`,
+  mandar: `Gunakan budaya Mandar: perahu sandeq, tradisi menenun sutera, atau sayyang pattu'du. Bahasa: Mandar.`,
+  toraja: `Gunakan budaya Toraja: rumah tongkonan, upacara rambu solo', atau ukiran kayu toraja. Bahasa: Toraja.`,
+  minahasa: `Gunakan budaya Minahasa: tari maengket, kuliner pedas, atau kearifan mapalus (gotong royong). Bahasa: Manado/Minahasa.`,
+  sangir_talaud: `Gunakan budaya Sangir-Talaud: musik bambu, tradisi melaut, atau sejarah kepulauan utara. Bahasa: Sangir.`,
+  gorontalo: `Gunakan budaya Gorontalo: upacara dikili, kain karawo, atau filosofi 'adat bersendikan syara'. Bahasa: Gorontalo.`,
+  kaili: `Gunakan budaya Kaili: tenun bomba, tari dader, atau sejarah lembah palu. Bahasa: Kaili.`,
+  pamona: `Gunakan budaya Pamona: festival danau poso, tari dolo-dolo, atau kearifan pegunungan tengah sulawesi. Bahasa: Pamona.`,
+  buton: `Gunakan budaya Buton: benteng keraton buton, tradisi pekande-kandea, atau sejarah kesultanan buton. Bahasa: Buton.`,
+  muna: `Gunakan budaya Muna: layang-layang tradisional (kaghati), tenun muna, atau sejarah gua liang kabori. Bahasa: Muna.`,
+  tolaki: `Gunakan budaya Tolaki: adat kalo sara, tari lulo, atau sejarah kerajaan konawe. Bahasa: Tolaki.`,
+  wakatobi: `Gunakan budaya Wakatobi: kearifan suku bajo, keindahan karang, atau sejarah maritim pesisir. Bahasa: Indonesia Pesisir.`,
 
-  // Americas
-  latin_american: `Use Latin American culture (Brazil/Mexico/Colombia): the rhythmic coordination of Carnival samba schools as synchronized processes, telenovela dramatic arcs for state changes, fútbol passion as competitive dynamics, and Macondo-style magical realism for abstract concepts.`,
-  mexican: `Use Mexican culture: the blending of indigenous Aztec roots with Spanish influence (mestizo concept) as hybrid systems, Día de Muertos multilayered altars (ofrendas) as hierarchical tribute, the heat of chili peppers as friction/resistance, and mariachi band synchronization.`,
-  andean: `Use Andean culture (Peru/Bolivia): the Incan Quipu knot system as binary/data encoding, Machu Picchu's earthquake-resistant interlocking stonework as robust architecture without mortar, cultivating potatoes at high altitudes as edge computing, and chewing coca leaves for stamina.`,
-  native_american: `Use Indigenous Native American culture: the carving of historical Totem poles as immutable blockchain-like ledgers, the Great Plains nomadic tracking skills for pattern recognition, powwow circle assemblies, and the Seventh Generation principle for long-term sustainable logic.`,
-  caribbean: `Use Caribbean culture: the syncopated rhythms of Reggae for asynchronous timing, island archipelago hopping as network routing, the distillation of rum as refining raw data into high purity, and navigating trade winds.`,
-  north_american: `Use US/Canada general culture: the Wild West frontier expansion, the interstate highway road trip as data transit, the NFL playbook as complex branching logic, and the Silicon Valley 'move fast and break things' paradigm.`,
+  // ── Maluku ──
+  ambon: `Gunakan budaya Ambon: musik ukulele, papeda, atau filosofi pela gandong. Bahasa: Ambon/Melayu Ambon.`,
+  seram: `Gunakan budaya Seram: sejarah nusa pulau, kearifan hutan maluku tengah, atau tradisi sagu. Bahasa: Seram/Ambon.`,
+  kei: `Gunakan budaya Kei: hukum larvul ngabal, pasir putih ngurbloat, atau kearifan laut maluku tenggara. Bahasa: Kei.`,
+  tanimbar: `Gunakan budaya Tanimbar: kain telun tanimbar, patung kayu tradisional, atau sejarah kepulauan selatan. Bahasa: Tanimbar.`,
+  aru: `Gunakan budaya Aru: mutiara aru, burung cendrawasih, atau kearifan masyarakat pesisir timur. Bahasa: Aru.`,
+  ternate: `Gunakan budaya Ternate: sejarah rempah-rempah, kesultanan ternate, atau gunung gamalama. Bahasa: Ternate.`,
+  tidore: `Gunakan budaya Tidore: sejarah kesultanan tidore, rempah cengkeh, atau kearifan pulau vulkanik. Bahasa: Tidore.`,
+  tobelo_galela: `Gunakan budaya Tobelo-Galela: tari cakalele maluku utara, kearifan teluk halmahera, atau hasil kelapa. Bahasa: Tobelo.`,
 
-  // Ancient Timeless
-  ancient_egyptian: `Use Ancient Egyptian culture: the seasonal flooding of the Nile as predictable data bursts, hieroglyphics as encodings, the construction of Pyramids as massive monolithic engineering, and the concept of Maat (cosmic balance/truth).`,
-  mesopotamian: `Use Ancient Mesopotamian culture: the Code of Hammurabi for strict rule-based logic/validation, cuneiform clay tablets as persistent cold storage, the unpredictable Tigris/Euphrates rivers, and the Ziggurat steps as stacked architecture.`,
-  roman: `Use Ancient Roman culture: the strict discipline of the Roman Legion for array/grid execution, the vast aqueduct systems for continuous data pipelines, the Senate debates for consensus logic, and Stoic philosophy for error-handling resilience.`,
-  aztec_maya: `Use Aztec/Mayan culture: the hyper-accurate cyclic Mayan calendars representing cyclical processes, the complex agriculture on chinampas (floating gardens), ritual sacrifice as resource cost, and base-20 mathematics.`,
-  viking: `Use Ancient Viking culture: seafaring longships engineered to bend not break in storms as flexibility architecture, raids as aggressive data harvesting, sagas as immutable transaction logs, and the pantheon of gods (Odin for knowledge, Thor for brute force).`,
-  hindu_vedic: `Use Ancient Hindu/Vedic culture: the cycle of Karma and Samsara as feedback loops and iterations, Dharma as strict type-checking or destiny, the Upanishads dialogue, and the concept of zero (Shunya) originating from this era.`,
+  // ── Papua ──
+  asmat: `Gunakan budaya Asmat: ukiran kayu keramat, rumah bujang (jew), atau kearifan rawa-rawa papua selatan. Bahasa: Indonesia Papua.`,
+  dani: `Gunakan budaya Dani: rumah honai, bakar batu, atau lembah baliem. Bahasa: Indonesia Papua/Dani.`,
+  lani: `Gunakan budaya Lani: kearifan pegunungan tengah, kemandirian tani, atau tradisi persaudaraan. Bahasa: Indonesia Papua.`,
+  yali: `Gunakan budaya Yali: rumah honai bulat, pakaian tradisional koteka, atau kearifan hutan rimba. Bahasa: Indonesia Papua.`,
+  mee: `Gunakan budaya Mee: kearifan danau paniai, tradisi perdagangan lokal, atau adat pegunungan. Bahasa: Indonesia Papua.`,
+  amungme: `Gunakan budaya Amungme: kearifan menjaga gunung keramat, sejarah pegunungan papua tengah, atau adat istiadat. Bahasa: Indonesia Papua.`,
+  kamoro: `Gunakan budaya Kamoro: seni ukir kamoro, kearifan pesisir rawa, atau sejarah papua tengah. Bahasa: Indonesia Papua.`,
+  korowai: `Gunakan budaya Korowai: rumah pohon, kearifan rimba papua selatan, atau cara bertahan hidup alami. Bahasa: Indonesia Papua.`,
+  marind: `Gunakan budaya Marind: tari gotad, kearifan rawa Merauke, atau filosofi hubungan dengan alam. Bahasa: Indonesia Papua.`,
+  sentani: `Gunakan budaya Sentani: lukisan kulit kayu, danau sentani, atau kerajinan khas jayapura. Bahasa: Indonesia Papua.`,
+  biak: `Gunakan budaya Biak: tradisi pelayaran tradisional, tarian wor, atau sejarah kepulauan cenderawasih. Bahasa: Indonesia Papua/Biak.`,
+  arfak: `Gunakan budaya Arfak: rumah kaki seribu, burung pintar (cenderawasih arfak), atau kearifan manokwari. Bahasa: Indonesia Papua.`,
+  moi: `Gunakan budaya Moi: kearifan tanah malamoi sorong, hukum adat tanah, atau sejarah papua barat daya. Bahasa: Indonesia Papua.`,
 
-  // Special / Cross-Cultural
-  gamer: `Use gaming culture references: RPG quest structure (main quest vs side quest) for primary vs secondary processes, XP and leveling up for cumulative learning, boss fight mechanics (phases/patterns) for problem decomposition, respawn/checkpoint for error recovery, and guild dynamics.`,
-  internet: `Use Internet/Meme culture: viral propagation algorithms, treating entities as NPCs or main characters, forum thread derivations, speedrun exploits bypassing normal logic, and iceberg lore hierarchy for deep concepts.`,
-  sports_universal: `Use Universal Sports culture: relay race baton passing as memory handoffs, team formations (offense/defense arrays), the underdog narrative, scoreboards, and the intense pressure of a penalty shootout mapping to edge-case stress tests.`,
-  scientific: `Use scientific lab culture references: hypothesis-experiment-conclusion cycle for iterative processes, peer review as validation, the eureka moment as breakthrough events, double-blind experiments for unbiased testing, Occam's razor for simplicity, and famous experiment stories.`,
-  musical: `Use Musical culture: the jazz improvisation of a rhythm section responding asynchronously, the conductor of an orchestra managing microservices, the crescendo of volume as scaling up, harmony/dissonance, and sheet music as raw syntax.`,
-  cyber: `Use Cyber/Tech culture: terminal commands (sudo style), hacker logic, neon matrix grids, darkweb navigation as depth-first search, firewall security protocols, and glitched aesthetics representing system anomalies.`,
-}
+  // ── Extra ──
+  japanese: `Gunakan analogi budaya Jepang: samurai (disiplin), origami (transformasi), atau kaizen (perbaikan). Bahasa: Indonesia/Jepang.`,
+  chinese: `Gunakan analogi budaya Tiongkok: catur tiongkok, filosofi yin-yang, atau sejarah sutra. Bahasa: Indonesia/Mandarin.`,
+  korean: `Gunakan analogi budaya Korea: k-drama, ppali-ppali (efisiensi), atau hanbok. Bahasa: Indonesia/Korea.`,
+  viking: `Gunakan analogi budaya Viking: kapal longship (kerjasama), mitologi norse, atau eksplorasi. Bahasa: Indonesia.`,
+  gamer: `Gunakan analogi dunia game: leveling up, boss fight, atau loot system. Bahasa: Indonesia Gaol/Gamer.`,
+  cyber: `Gunakan analogi dunia siber/hacker: firewall, data packet, atau coding logic. Bahasa: Indonesia/English tech.`,
+  scientific: `Gunakan analogi ilmiah murni: laboratorium, metode riset, atau rumus fisika. Bahasa: Indonesia Formal.`
+};
 
 // ─── Exported Functions ──────────────────────────────────────────
 
 export function getLensSystemPrompt(lens: LensType): string {
   const lensInstruction = LENS_CULTURAL_INSTRUCTIONS[lens]
   
-  return `CRITICAL LANGUAGE RULE:
-Detect the language of the user's input text and respond entirely 
-in that same language. Do not default to Indonesian. Do not translate.
-The cultural lens affects analogies and context only, not the language.
-Exception: bilingualGlossary.englishB1 is always written in simple 
-English (B1 level) regardless of input language.
-
-LANGUAGE DETECTION:
-- English input → English output
-- Indonesian input → Indonesian output  
-- Any other language → match that language
-
-You are LENTERA, an AI EdTech companion that helps university students 
-understand complex academic material through cultural analogies.
+  return `${BASE_PERSONA}
+${DYSLEXIA_RULES}
 
 Your task: Take the academic text provided and explain it using 
 analogies and context from ${lens} culture.
 
 CULTURAL LENS: ${lensInstruction}
 
-OUTPUT MUST BE STRICT JSON with this exact structure:
-{
-  "dyslexiaFriendlyTeks": "The original material restructured into 
-    short sentences (max 15 words each). Use bullet points for lists. 
-    Bold key terms with **asterisks**. Write in the DETECTED INPUT LANGUAGE.",
-    
-  "culturalAnalogy": "A vivid, specific analogy using ${lens} cultural 
-    references that explains the core concept. Make it memorable and 
-    concrete. Write in the DETECTED INPUT LANGUAGE.",
-    
-  "examBoundary": "1-2 sentences warning that the analogy is a 
-    learning aid, not a formal definition. Remind the student to 
-    use academic terminology in exams. Write in the DETECTED INPUT LANGUAGE.",
-    
-  "bilingualGlossary": [
-    {
-      "term": "key technical term from the text",
-      "englishB1": "ALWAYS IN ENGLISH: simple B1-level definition",
-      "localContext": "Cultural context or translation in the 
-        DETECTED INPUT LANGUAGE"
-    }
-  ]
-}
+${JSON_SCHEMA_LENS}
 
 Extract 3-5 of the most important technical terms for the glossary.
 Temperature: 0.3 for consistency.
@@ -185,34 +194,16 @@ Response must be valid JSON only. No markdown, no explanation outside JSON.`
 export function getQuizSystemPrompt(lens: LensType): string {
   const lensInstruction = LENS_CULTURAL_INSTRUCTIONS[lens]
   
-  return `CRITICAL LANGUAGE RULE:
-Detect the language of the user's input and write ALL quiz content 
-(questions, options, explanations) in that same language.
-The cultural framing uses ${lens} culture regardless of language.
+  return `${BASE_PERSONA}
 
-You are LENTERA. Create 3 multiple choice quiz questions based on 
-the provided academic material.
-
+Create 3 multiple choice quiz questions based on the provided academic material.
 Wrap each question in the narrative and style of ${lens} culture.
-${lensInstruction}
 
-OUTPUT: Valid JSON array only. No text outside JSON.
-[
-  {
-    "question": "Question text in DETECTED INPUT LANGUAGE, 
-      framed with ${lens} cultural context",
-    "options": [
-      "A. first option",
-      "B. second option", 
-      "C. third option",
-      "D. fourth option"
-    ],
-    "correctAnswer": "A",
-    "culturalExplanation": "Why this answer is correct, explained 
-      through ${lens} cultural lens. Write in DETECTED INPUT LANGUAGE.",
-    "difficulty": "easy | medium | hard"
-  }
-]`
+CULTURAL LENS: ${lensInstruction}
+
+${JSON_SCHEMA_QUIZ}
+
+Response must be valid JSON only. No text outside JSON.`
 }
 
 export function getMultimodalExtractionPrompt(): string {
