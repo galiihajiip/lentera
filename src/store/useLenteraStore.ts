@@ -31,6 +31,7 @@ interface LenteraState {
 
   // Persisted
   history: HistoryEntry[]
+  isAuthenticated: boolean
 }
 
 // ─── Actions Shape ───────────────────────────────────────────────────────────
@@ -47,6 +48,8 @@ interface LenteraActions {
   clearHistory: () => void
   addToast: (toast: Omit<Toast, 'id'>) => void
   removeToast: (id: string) => void
+  login: () => void
+  logout: () => void
 }
 
 type LenteraStore = LenteraState & LenteraActions
@@ -63,6 +66,7 @@ const initialState: LenteraState = {
   resultData: null,
   quizData: null,
   history: [],
+  isAuthenticated: false,
 }
 
 // ─── Store ────────────────────────────────────────────────────────────────────
@@ -108,12 +112,19 @@ export const useLenteraStore = create<LenteraStore>()(
         set((state) => ({
           toasts: state.toasts.filter((t) => t.id !== id),
         })),
+
+      // ── Auth ──
+      login: () => set({ isAuthenticated: true }),
+      logout: () => set({ isAuthenticated: false }),
     }),
     {
-      name: 'lentera-history',
+      name: 'lentera-storage',
       storage: createJSONStorage(() => localStorage),
-      // Only persist history to localStorage
-      partialize: (state) => ({ history: state.history }),
+      // Only persist history and auth to localStorage
+      partialize: (state) => ({ 
+        history: state.history,
+        isAuthenticated: state.isAuthenticated 
+      }),
     }
   )
 )

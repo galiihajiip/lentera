@@ -1,6 +1,7 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import Gambar from 'next/image'
 import LogoMark from '@/components/LogoMark'
@@ -19,8 +20,9 @@ export default function HomePage() {
   const { 
     isLoading, resultData, quizData, activeTab, setActiveTab, 
     history, inputTeks, selectedLens, addToast, setResult, 
-    setLoading, addHistory, setQuiz, setSelectedLens
+    setLoading, addHistory, setQuiz, setSelectedLens, logout
   } = useLenteraStore()
+  const router = useRouter()
 
   const [historyOpen, setHistoryOpen] = useState(false)
   const [howToOpen, setHowToOpen] = useState(false)
@@ -123,6 +125,12 @@ export default function HomePage() {
               className="text-xs font-bold text-lentera-muted hover:text-lentera-green transition-colors px-4 py-2 rounded-lg border border-lentera-border hover:bg-lentera-surface2"
             >
               Riwayat {history.length > 0 && `(${history.length})`}
+            </button>
+            <button 
+              onClick={() => { logout(); router.push('/landing'); }}
+              className="text-xs font-bold text-lentera-muted hover:text-red-400 transition-colors px-4 py-2 rounded-lg border border-transparent hover:border-red-400/20"
+            >
+              Keluar
             </button>
           </div>
         </div>
