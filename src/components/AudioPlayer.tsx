@@ -28,12 +28,8 @@ export default function AudioPlayer({ textToRead }: Props) {
 
       // Priority order for multilingual support
       const priority = [
-        'Google Bahasa Indonesia', 'Microsoft Andika',
-        'Google US English', 'Google UK English Female',
-        'Microsoft Zira', 'Google français',
-        'Google Deutsch', 'Google español',
-        'Google العربية', 'Google 日本語',
-        'Google 한국의', 'Google 普通话',
+        'Google Bahasa Indonesia', 'Microsoft Andika', 'Google Melayu', 'Microsoft Rizwan',
+        'id-ID', 'id_ID', 'ms-MY', 'ms_MY', 'Indonesian', 'Bahasa Indonesia', 'Malay', 'Melayu'
       ]
 
       const sorted = [...all].sort((a, b) => {
@@ -42,8 +38,12 @@ export default function AudioPlayer({ textToRead }: Props) {
         if (ai >= 0 && bi >= 0) return ai - bi
         if (ai >= 0) return -1
         if (bi >= 0) return 1
-        if (a.lang.startsWith('id') && !b.lang.startsWith('id')) return -1
-        if (b.lang.startsWith('id') && !a.lang.startsWith('id')) return 1
+        
+        const isALocal = a.lang.startsWith('id') || a.lang.startsWith('ms')
+        const isBLocal = b.lang.startsWith('id') || b.lang.startsWith('ms')
+        
+        if (isALocal && !isBLocal) return -1
+        if (isBLocal && !isALocal) return 1
         return 0
       })
 
@@ -53,10 +53,14 @@ export default function AudioPlayer({ textToRead }: Props) {
       const idWords = ['yang','adalah','dan','untuk','ini','itu','dari','dengan','pada','tidak','juga']
       const tokens  = textToRead.toLowerCase().split(/\s+/)
       const idRatio = tokens.filter(t => idWords.includes(t)).length / tokens.length
-      const bestIdx = isNaN(idRatio) ? 0 :
-        idRatio > 0.1
-          ? sorted.findIndex(v => v.lang.startsWith('id') || v.name.toLowerCase().includes('indonesian'))
-          : sorted.findIndex(v => v.lang.startsWith('en'))
+      // Priority to Indonesian/Malay voices for LENTERA
+      const bestIdx = sorted.findIndex(v => 
+        v.lang.startsWith('id') || 
+        v.lang.startsWith('ms') || 
+        v.name.toLowerCase().includes('indonesian') || 
+        v.name.toLowerCase().includes('bahasa') ||
+        v.name.toLowerCase().includes('malay')
+      )
       setVoiceIdx(bestIdx < 0 ? 0 : bestIdx)
     }
 
