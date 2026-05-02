@@ -96,16 +96,8 @@ export default function HomePage() {
       
       {/* ── TOPBAR ── */}
       <header className="bg-lentera-surface border-t-2 border-lentera-green border-b border-lentera-border h-[72px] px-8 flex items-center justify-between sticky top-0 z-40">
-        <Link href="/landing" className="flex items-center gap-4 group">
-          <LogoMark />
-          <div className="flex flex-col">
-            <h1 className="font-display font-bold text-lentera-green text-[20px] tracking-wider leading-none">
-              LENTERA
-            </h1>
-            <p className="text-xs text-lentera-muted mt-0.5">
-              AI Study Companion · Powered by Gemini 2.5 Flash
-            </p>
-          </div>
+        <Link href="/landing" className="flex items-center group">
+          <LogoMark size={32} isWide={true} />
         </Link>
         
         <div className="flex items-center gap-6">

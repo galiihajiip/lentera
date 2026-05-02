@@ -9,9 +9,8 @@ export default function Footer() {
           
           {/* LEFT COLUMN */}
           <div className="flex flex-col gap-6">
-            <div className="flex items-center gap-4 group">
-              <LogoMark />
-              <span className="font-bold text-lentera-green text-2xl tracking-tighter uppercase">LENTERA</span>
+            <div className="flex items-center group">
+              <LogoMark size={32} isWide={true} />
             </div>
             <p className="text-sm text-lentera-text-secondary leading-relaxed font-body max-w-[300px]">
               Pendamping Belajar AI yang Adaptif Secara Budaya. Menyederhanakan materi akademik melalui konteks Nusantara yang relevan.

@@ -20,8 +20,8 @@ export const metadata: Metadata = {
   title: 'LENTERA: AI Study Companion',
   description: 'AI-Powered student companion built to simplify complex academic materials.',
   icons: {
-    icon: '/logo-lentera.jpeg',
-    apple: '/logo-lentera.jpeg',
+    icon: '/logo-square.jpeg',
+    apple: '/logo-square.jpeg',
   },
 }
 
