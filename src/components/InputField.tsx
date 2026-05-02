@@ -22,7 +22,7 @@ function formatBytes(bytes: number) {
 
 function TeksMode() {
   const { inputTeks, setInputTeks } = useLenteraStore()
-  const textareaRef = useRef<HTMLTeksAreaElement>(null)
+  const textareaRef = useRef<HTMLTextAreaElement>(null)
 
   useEffect(() => {
     const el = textareaRef.current
@@ -53,7 +53,7 @@ function TeksMode() {
       <textarea
         ref={textareaRef}
         value={inputTeks}
-        onChange={(e: ChangeEvent<HTMLTeksAreaElement>) => setInputTeks(e.target.value)}
+        onChange={(e: ChangeEvent<HTMLTextAreaElement>) => setInputTeks(e.target.value)}
         placeholder="Tempel catatan kuliah, materi belajar, atau kutipan buku teks di sini... Minimal 50 karakter. Anda juga bisa mengunggah gambar atau audio di atas."
         maxLength={MAX_CHARS + 100}
         className={`w-full min-h-[200px] bg-lentera-bg border rounded-xl p-6 text-base leading-relaxed text-lentera-text-secondary placeholder-lentera-muted resize-none focus:outline-none focus:border-lentera-green-glow focus:ring-1 focus:ring-lentera-green-glow transition-all duration-150 custom-scrollbar
