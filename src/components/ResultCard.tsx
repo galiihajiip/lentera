@@ -29,7 +29,7 @@ export default function ResultCard({ onGenerateQuiz, isGeneratingQuiz }: ResultC
           <div className="flex items-center gap-3">
             <span className="text-xl">🧠</span>
             <h3 className="text-sm font-bold text-lentera-text uppercase tracking-widest leading-none">
-              Simplified Concepts
+              Konsep Sederhana
             </h3>
           </div>
           <div className="flex items-center gap-3">
@@ -37,10 +37,10 @@ export default function ResultCard({ onGenerateQuiz, isGeneratingQuiz }: ResultC
               onClick={() => handleListen(result.dyslexiaFriendlyTeks)}
               className="px-4 py-2 rounded-xl text-xs font-bold border border-lentera-border text-lentera-muted hover:border-lentera-green-glow hover:text-lentera-green transition-all active:scale-95 flex items-center gap-2 bg-lentera-bg/50"
             >
-              <span>🔊</span> Listen
+              <span>🔊</span> Dengarkan
             </button>
             <div className="hidden sm:block text-[10px] bg-lentera-green-glow/20 text-lentera-green px-3 py-1.5 rounded-lg border border-lentera-green-glow/30 font-extrabold tracking-wider">
-              DYSLEXIA FRIENDLY
+              RAMAH DISLEKSIA
             </div>
           </div>
         </div>
@@ -64,14 +64,14 @@ export default function ResultCard({ onGenerateQuiz, isGeneratingQuiz }: ResultC
           <div className="flex items-center gap-3">
             <span className="text-xl">🎭</span>
             <h3 className="text-sm font-bold text-lentera-text uppercase tracking-widest leading-none">
-              The {selectedLens.replace('_', ' ').toUpperCase()} Lens
+              Lensa {selectedLens.replace('_', ' ').toUpperCase()}
             </h3>
           </div>
           <button 
             onClick={() => handleListen(result.culturalAnalogy)}
             className="px-4 py-2 rounded-xl text-xs font-bold border border-lentera-border text-lentera-muted hover:border-lentera-green-glow hover:text-lentera-green transition-all active:scale-95 flex items-center gap-2 bg-lentera-bg/50"
           >
-            <span>🔊</span> Listen
+            <span>🔊</span> Dengarkan
           </button>
         </div>
         <div className="p-8 md:p-10">
@@ -86,7 +86,7 @@ export default function ResultCard({ onGenerateQuiz, isGeneratingQuiz }: ResultC
           <div className="flex gap-4 items-start bg-yellow-500/[0.04] border border-yellow-500/20 rounded-xl p-6 mt-8 animate-fade-in shadow-sm">
             <span className="text-2xl mt-0.5 filter drop-shadow-sm select-none">🔥</span>
             <div>
-              <p className="text-sm font-bold text-yellow-500 uppercase tracking-widest mb-1">Exam Boundary Notice</p>
+              <p className="text-sm font-bold text-yellow-500 uppercase tracking-widest mb-1">Catatan Batasan Ujian</p>
               <p className="text-sm md:text-base text-yellow-200/90 leading-relaxed italic font-medium">
                 {result.examBoundary}
               </p>
@@ -101,7 +101,7 @@ export default function ResultCard({ onGenerateQuiz, isGeneratingQuiz }: ResultC
           <div className="flex items-center gap-3">
             <span className="text-xl">📚</span>
             <h3 className="text-sm font-bold text-lentera-text uppercase tracking-widest leading-none">
-              Bilingual Glossary
+              Glosarium Bilingual
             </h3>
           </div>
         </div>
@@ -109,9 +109,9 @@ export default function ResultCard({ onGenerateQuiz, isGeneratingQuiz }: ResultC
           <table className="w-full text-left border-collapse">
             <thead>
               <tr className="bg-lentera-bg/50">
-                <th className="py-5 px-8 text-xs font-extrabold text-lentera-muted uppercase tracking-[0.2em] border-b border-lentera-border">Academic Term</th>
-                <th className="py-5 px-8 text-xs font-extrabold text-lentera-muted uppercase tracking-[0.2em] border-b border-lentera-border">Definition (B1 Level)</th>
-                <th className="py-5 px-8 text-xs font-extrabold text-lentera-muted uppercase tracking-[0.2em] border-b border-lentera-border">Local Context</th>
+                <th className="py-5 px-8 text-xs font-extrabold text-lentera-muted uppercase tracking-[0.2em] border-b border-lentera-border">Istilah Akademik</th>
+                <th className="py-5 px-8 text-xs font-extrabold text-lentera-muted uppercase tracking-[0.2em] border-b border-lentera-border">Definisi (Level B1)</th>
+                <th className="py-5 px-8 text-xs font-extrabold text-lentera-muted uppercase tracking-[0.2em] border-b border-lentera-border">Konteks Lokal</th>
               </tr>
             </thead>
             <tbody>
@@ -136,8 +136,8 @@ export default function ResultCard({ onGenerateQuiz, isGeneratingQuiz }: ResultC
       {/* 4. GENERATE QUIZ CTA */}
       <div className="mt-4 mb-10 flex flex-col items-center gap-6 p-10 border-2 border-dashed border-lentera-border rounded-3xl bg-lentera-surface/30 backdrop-blur-sm group hover:border-lentera-green-glow transition-all duration-300">
         <div className="text-center max-w-sm">
-          <h4 className="text-xl font-bold font-display text-lentera-text mb-2 transition-colors group-hover:text-lentera-green">Mastered the material?</h4>
-          <p className="text-base text-lentera-muted leading-relaxed">Test your core concept understanding with a context-aware mini quiz.</p>
+          <h4 className="text-xl font-bold font-display text-lentera-text mb-2 transition-colors group-hover:text-lentera-green">Sudah menguasai materi?</h4>
+          <p className="text-base text-lentera-muted leading-relaxed">Uji pemahaman konsep inti Anda dengan kuis mini berkonteks.</p>
         </div>
         <button
           onClick={onGenerateQuiz}
@@ -147,12 +147,12 @@ export default function ResultCard({ onGenerateQuiz, isGeneratingQuiz }: ResultC
           {isGeneratingQuiz ? (
             <>
               <div className="w-5 h-5 border-3 border-lentera-bg border-t-transparent rounded-full animate-spin" />
-              <span>GENERATING...</span>
+              <span>MEMBUAT...</span>
             </>
           ) : (
             <>
               <span className="text-2xl group-hover/btn:rotate-12 transition-transform">🎮</span> 
-              <span>GENERATE MINI QUIZ</span>
+              <span>BUAT KUIS MINI</span>
             </>
           )}
         </button>
@@ -166,7 +166,7 @@ export default function ResultCard({ onGenerateQuiz, isGeneratingQuiz }: ResultC
               <div className="flex items-center gap-3">
                 <span className="w-2.5 h-2.5 rounded-full bg-lentera-green animate-pulse shadow-[0_0_8px_rgba(74,222,128,0.5)]" />
                 <span className="text-[10px] text-lentera-muted uppercase tracking-[0.25em] font-extrabold">
-                  LENTERA : Audio Scholar
+                  LENTERA : Asisten Audio
                 </span>
               </div>
               <button 
@@ -182,7 +182,7 @@ export default function ResultCard({ onGenerateQuiz, isGeneratingQuiz }: ResultC
             <AudioPlayer textToRead={ttsTeks} />
             
             <p className="mt-5 text-[9px] text-center text-lentera-muted italic leading-tight px-4 opacity-60 group-hover:opacity-100 transition-opacity">
-              Note: You can swap languages and speed in settings above. Highlighted text follows the voice.
+              Catatan: Anda dapat mengubah bahasa dan kecepatan di pengaturan.
             </p>
           </div>
         </div>

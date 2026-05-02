@@ -172,7 +172,7 @@ export default function AudioPlayer({ textToRead }: Props) {
                        hover:border-lentera-green-glow hover:text-lentera-green transition-colors
                        max-w-48 truncate">
             <span>{flag(voices[voiceIdx])}</span>
-            <span className="truncate">{voices[voiceIdx]?.name ?? 'Select voice'}</span>
+            <span className="truncate">{voices[voiceIdx]?.name ?? 'Pilih suara'}</span>
             <span className="flex-shrink-0">{showPicker ? '▲' : '▼'}</span>
           </button>
         )}

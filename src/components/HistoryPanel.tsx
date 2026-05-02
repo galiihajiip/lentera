@@ -19,13 +19,13 @@ function getLensData(lensId: string) {
 
 function getRelativeTime(timestamp: number) {
   const diffInSeconds = Math.floor((Date.now() - timestamp) / 1000)
-  if (diffInSeconds < 60) return `Just now`
+  if (diffInSeconds < 60) return `Baru saja`
   const diffInMinutes = Math.floor(diffInSeconds / 60)
-  if (diffInMinutes < 60) return `${diffInMinutes}m ago`
+  if (diffInMinutes < 60) return `${diffInMinutes}m lalu`
   const diffInHours = Math.floor(diffInMinutes / 60)
-  if (diffInHours < 24) return `${diffInHours}h ago`
+  if (diffInHours < 24) return `${diffInHours}j lalu`
   const diffInDays = Math.floor(diffInHours / 24)
-  return `${diffInDays}d ago`
+  return `${diffInDays}h lalu`
 }
 
 export default function HistoryPanel({ isOpen, onClose }: Props) {
@@ -40,7 +40,7 @@ export default function HistoryPanel({ isOpen, onClose }: Props) {
   }
 
   const handleClear = () => {
-    if (confirm('Are you sure you want to clear your entire history?')) {
+    if (confirm('Apakah Anda yakin ingin menghapus seluruh riwayat?')) {
       clearHistory()
     }
   }
@@ -55,7 +55,7 @@ export default function HistoryPanel({ isOpen, onClose }: Props) {
         
         <div className="p-5 border-b border-lentera-border flex items-center justify-between mt-2">
           <h2 className="text-sm font-semibold tracking-[0.12em] text-lentera-muted uppercase font-display flex items-center gap-2">
-            <span className="text-lentera-green text-lg">📁</span> History
+            <span className="text-lentera-green text-lg">📁</span> Riwayat
           </h2>
           <button onClick={onClose} className="p-2 rounded-lg text-lentera-muted hover:bg-lentera-surface2 hover:text-lentera-text-secondary transition-colors text-lg line-height-none">
             ✕
@@ -66,7 +66,7 @@ export default function HistoryPanel({ isOpen, onClose }: Props) {
           {history.length === 0 ? (
             <div className="h-full flex flex-col items-center justify-center opacity-60">
               <span className="text-4xl mb-3 grayscale mix-blend-overlay">👻</span>
-              <p className="text-sm text-lentera-muted font-medium">No history yet</p>
+              <p className="text-sm text-lentera-muted font-medium">Belum ada riwayat</p>
             </div>
           ) : (
             <div className="flex flex-col gap-3">
@@ -102,9 +102,9 @@ export default function HistoryPanel({ isOpen, onClose }: Props) {
               onClick={handleClear}
               className="w-full py-3 rounded-lg border border-red-900/50 text-red-400 text-xs font-bold hover:bg-red-900/20 transition-colors"
             >
-              Clear All History
+              Hapus Semua Riwayat
             </button>
-            <p className="text-center text-[10px] text-lentera-muted mt-3">Saved locally in your browser.</p>
+            <p className="text-center text-[10px] text-lentera-muted mt-3">Disimpan secara lokal di browser Anda.</p>
           </div>
         )}
       </div>

@@ -53,9 +53,9 @@ export default function QuizCard({ quiz, lens }: QuizCardProps) {
         <div className="w-20 h-20 rounded-full bg-lentera-green-subtle border border-lentera-green-glow flex items-center justify-center text-3xl mb-4">
           {score === quiz.length ? '🏆' : '💪'}
         </div>
-        <h3 className="font-display text-2xl font-bold text-lentera-green mb-2">Quiz Finished!</h3>
+        <h3 className="font-display text-2xl font-bold text-lentera-green mb-2">Kuis Selesai!</h3>
         <p className="text-lentera-text-secondary mb-6">
-          You scored <span className="text-lentera-green font-bold">{score}/{quiz.length}</span>
+          Skor Anda <span className="text-lentera-green font-bold">{score}/{quiz.length}</span>
         </p>
         
         {score === quiz.length && (
@@ -63,15 +63,15 @@ export default function QuizCard({ quiz, lens }: QuizCardProps) {
             <div className="w-32 h-32 relative">
               <Gambar
                 src="/images/bagong.png"
-                alt="Bagong celebrates your perfect score!"
+                alt="Bagong merayakan skor sempurna Anda!"
                 width={128}
                 height={128}
                 className="object-contain animate-bounce"
               />
             </div>
-            <p className="text-sm font-medium text-lentera-green-text">Perfect score! Bagong is proud of you! 🦅</p>
+            <p className="text-sm font-medium text-lentera-green-text">Skor sempurna! Bagong bangga padamu! 🦅</p>
             <div className="bg-lentera-green-subtle text-lentera-green border border-lentera-green-glow px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-widest mb-4">
-              Culture Master: {lens}
+              Master Budaya: {lens}
             </div>
           </div>
         )}
@@ -81,7 +81,7 @@ export default function QuizCard({ quiz, lens }: QuizCardProps) {
             onClick={handleReset}
             className="flex-1 bg-lentera-green text-lentera-bg font-bold py-3 rounded-xl hover:bg-green-300 transition-all active:scale-95"
           >
-            Restart Quiz
+            Ulangi Kuis
           </button>
         </div>
       </div>
@@ -93,7 +93,7 @@ export default function QuizCard({ quiz, lens }: QuizCardProps) {
       {/* Progress */}
       <div className="flex items-center justify-between">
         <span className="text-[10px] font-bold text-lentera-muted uppercase tracking-widest">
-          Question {currentIndex + 1} of {quiz.length}
+          Pertanyaan {currentIndex + 1} dari {quiz.length}
         </span>
         <div className="flex h-1.5 w-32 bg-lentera-border rounded-full overflow-hidden">
           <div 
@@ -142,7 +142,7 @@ export default function QuizCard({ quiz, lens }: QuizCardProps) {
       {isAnswered && (
         <div className="bg-lentera-surface2 border border-lentera-border rounded-xl p-5 animate-fade-in-up">
           <div className="flex items-center gap-2 mb-2 text-lentera-green font-bold text-xs uppercase tracking-widest">
-            <span>🎭</span> Cultural Insight
+            <span>🎭</span> Wawasan Budaya
           </div>
           <p className="text-xs text-lentera-text-secondary leading-relaxed">
             {currentQuestion.culturalExplanation}
@@ -152,7 +152,7 @@ export default function QuizCard({ quiz, lens }: QuizCardProps) {
             onClick={handleNext}
             className="mt-6 w-full bg-lentera-green text-lentera-bg font-bold py-3 rounded-xl hover:bg-green-300 transition-all flex items-center justify-center gap-2 group"
           >
-            {currentIndex < quiz.length - 1 ? 'Next Question' : 'View Final Score'}
+            {currentIndex < quiz.length - 1 ? 'Pertanyaan Berikutnya' : 'Lihat Skor Akhir'}
             <span className="group-hover:translate-x-1 transition-transform">→</span>
           </button>
         </div>

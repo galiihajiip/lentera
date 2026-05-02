@@ -1,8 +1,41 @@
 import { GoogleGenAI } from '@google/genai'
 
-// Initialize Singleton Instance
-const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY as string })
+import fs from 'fs';
+import path from 'path';
 
+let aiInstance: GoogleGenAI | null = null;
+
+function getAI(): GoogleGenAI {
+  if (!aiInstance) {
+    let apiKey = process.env.GEMINI_API_KEY;
+    
+    // Fallback: manually read .env.local if not loaded (e.g., server not restarted)
+    if (!apiKey) {
+      try {
+        const envPath = path.resolve(process.cwd(), '.env.local');
+        const envFile = fs.readFileSync(envPath, 'utf8');
+        const match = envFile.match(/GEMINI_API_KEY=(.+)/);
+        if (match && match[1]) {
+          let key = match[1].trim();
+          if (key.startsWith('"') && key.endsWith('"')) {
+            key = key.slice(1, -1);
+          } else if (key.startsWith("'") && key.endsWith("'")) {
+            key = key.slice(1, -1);
+          }
+          apiKey = key;
+        }
+      } catch (err) {
+        console.warn("Could not manually read .env.local", err);
+      }
+    }
+
+    if (!apiKey) {
+      throw new Error("GEMINI_API_KEY environment variable is not set. Please restart your Next.js server.");
+    }
+    aiInstance = new GoogleGenAI({ apiKey });
+  }
+  return aiInstance;
+}
 // Interfaces
 interface MediaData {
   data: string
@@ -51,7 +84,7 @@ export async function callGemini({
       contents.push(userPrompt)
 
       // 2. Send request to Gemini 2.5 Flash model
-      const response = await ai.models.generateContent({
+      const response = await getAI().models.generateContent({
         model: 'gemini-2.5-flash',
         contents: contents,
         config: {

@@ -806,7 +806,7 @@ export default function LandingPage() {
               ✦ Buka LENTERA Sekarang
             </Link>
             <a 
-              href="https://github.com/galiihajiip/kalika" 
+              href="https://github.com/galiihajiip/lentera" 
               target="_blank" 
               rel="noopener noreferrer"
               className="border border-lentera-border2 text-lentera-text px-10 py-5 rounded-xl font-bold text-lg hover:border-lentera-green/50 hover:bg-lentera-surface transition-all duration-300"

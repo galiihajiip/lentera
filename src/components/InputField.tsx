@@ -44,7 +44,7 @@ function TeksMode() {
   }
 
   const getCounterLabel = () => {
-    if (charCount > 0 && charCount < 50) return 'Too short'
+    if (charCount > 0 && charCount < 50) return 'Terlalu pendek'
     return null
   }
 
@@ -95,8 +95,8 @@ function DropZone({ mode, accept, onFile, error, isExtracting, previewFile, onCl
       >
         <span className="text-3xl opacity-60 filter grayscale group-hover:grayscale-0 transition-all">{icon}</span>
         <div>
-          <p className="text-sm font-semibold text-lentera-text-secondary group-hover:text-lentera-green transition-colors">Drag & drop your file here</p>
-          <p className="text-xs text-lentera-muted mt-1.5 px-3 py-1 bg-lentera-surface2 rounded-full border border-lentera-border">or click to browse local files</p>
+          <p className="text-sm font-semibold text-lentera-text-secondary group-hover:text-lentera-green transition-colors">Tarik & lepas file Anda di sini</p>
+          <p className="text-xs text-lentera-muted mt-1.5 px-3 py-1 bg-lentera-surface2 rounded-full border border-lentera-border">atau klik untuk mencari file lokal</p>
         </div>
         <input ref={inputRef} type="file" accept={accept} className="hidden" onChange={(e) => { if (e.target.files?.[0]) onFile(e.target.files[0]); e.target.value = '' }} />
       </div>
