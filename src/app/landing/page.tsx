@@ -183,9 +183,14 @@ export default function LandingPage() {
               {item.label}
             </a>
           ))}
-          <Link href="/app" className="bg-lentera-green text-lentera-bg px-6 py-2.5 rounded-xl font-display font-bold text-sm hover:scale-[1.03] hover:bg-green-300 transition-all duration-200">
-            Buka Aplikasi →
-          </Link>
+          <div className="flex flex-col items-end gap-1">
+            <Link href="/app" className="bg-lentera-green text-lentera-bg px-6 py-2.5 rounded-xl font-display font-bold text-sm hover:scale-[1.03] hover:bg-green-300 transition-all duration-200">
+              Buka Aplikasi →
+            </Link>
+            <span className="text-[10px] text-lentera-muted font-bold uppercase tracking-wider pr-1">
+              Demo: demo / lentera2026
+            </span>
+          </div>
         </div>
 
         {/* Mobile Hamburger Button */}
@@ -215,13 +220,18 @@ export default function LandingPage() {
                 {item.label}
               </a>
             ))}
-            <Link 
-              href="/app" 
-              onClick={() => setIsMenuOpen(false)}
-              className="w-full bg-lentera-green text-lentera-bg py-5 rounded-2xl font-display font-bold text-xl text-center shadow-lg shadow-lentera-green/20"
-            >
-              Buka LENTERA
-            </Link>
+            <div className="flex flex-col items-center gap-4 mt-4">
+              <Link 
+                href="/app"
+                onClick={() => setIsMenuOpen(false)}
+                className="bg-lentera-green text-lentera-bg px-10 py-4 rounded-2xl font-display font-bold text-lg shadow-xl shadow-lentera-green/20"
+              >
+                Buka Aplikasi →
+              </Link>
+              <p className="text-[10px] text-lentera-muted font-bold uppercase tracking-[0.2em]">
+                Demo: demo / lentera2026
+              </p>
+            </div>
           </div>
         </div>
       </nav>
