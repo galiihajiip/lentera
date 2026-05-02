@@ -161,7 +161,7 @@ export default function LandingPage() {
 
       <nav className="fixed top-0 inset-x-0 h-16 bg-lentera-bg/80 backdrop-blur-xl border-b border-lentera-border flex items-center justify-between px-[5%] z-[100]">
         <Link href="/" className="flex items-center group">
-          <LogoMark size={140} isWide={true} />
+          <LogoMark size={32} isWide={true} />
         </Link>
 
         {/* Desktop Menu */}
