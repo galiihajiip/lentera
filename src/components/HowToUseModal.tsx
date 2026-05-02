@@ -19,23 +19,23 @@ export default function HowToUseModal({ isOpen, onClose }: Props) {
   const steps = [
     {
       icon: '📝',
-      title: 'Provide Material',
-      desc: 'Type or paste academic text (min. 50 characters). You can also use the multimodal icon to extract text from images or audio.'
+      title: 'Siapkan Materi',
+      desc: 'Ketik atau tempel teks akademik (min. 50 karakter). Anda juga bisa menggunakan ikon multimodal untuk mengekstrak teks dari gambar atau audio.'
     },
     {
       icon: '🌍',
-      title: 'Choose Your Lens',
-      desc: 'Select from 50+ cultural contexts. This determines the analogies and framing LENTERA uses to explain the material.'
+      title: 'Pilih Lensa Budaya',
+      desc: 'Pilih dari 50+ konteks budaya. Ini menentukan analogi dan cara LENTERA menjelaskan materi tersebut.'
     },
     {
       icon: '✦',
-      title: 'Generate Analysis',
-      desc: 'Click the button to get a dyslexia-friendly breakdown, cultural analogies, and a technical glossary.'
+      title: 'Buat Analisis',
+      desc: 'Klik tombol untuk mendapatkan penjelasan ramah disleksia, analogi budaya, dan glosarium teknis.'
     },
     {
       icon: '🎮',
-      title: 'Test Yourself',
-      desc: 'Switch to the "Kuis Mikro" tab to generate a custom 3-question quiz based on your study material.'
+      title: 'Uji Kemampuanmu',
+      desc: 'Pindah ke tab "Kuis Mikro" untuk membuat kuis kustom berisi 3 pertanyaan berdasarkan materi belajarmu.'
     }
   ]
 
@@ -50,7 +50,7 @@ export default function HowToUseModal({ isOpen, onClose }: Props) {
       {/* Modal Content */}
       <div className="relative bg-lentera-surface border border-lentera-border rounded-2xl w-full max-w-lg shadow-2xl overflow-hidden animate-fade-up">
         <div className="bg-lentera-surface2 px-6 py-4 border-b border-lentera-border flex items-center justify-between">
-          <h3 className="font-display font-bold text-lentera-green tracking-wide">HOW TO USE LENTERA</h3>
+          <h3 className="font-display font-bold text-lentera-green tracking-wide">CARA PAKAI LENTERA</h3>
           <button 
             onClick={onClose}
             className="text-lentera-muted hover:text-lentera-text transition-colors p-1"
@@ -61,7 +61,7 @@ export default function HowToUseModal({ isOpen, onClose }: Props) {
 
         <div className="p-8 flex flex-col gap-8">
           <p className="text-sm text-lentera-text-secondary leading-relaxed italic">
-            "Your journey to understanding starts here. Follow these simple steps to master any subject."
+            "Perjalanan menuju pemahaman dimulai di sini. Ikuti langkah sederhana ini untuk menguasai materi apa pun."
           </p>
 
           <div className="space-y-6">
@@ -82,7 +82,7 @@ export default function HowToUseModal({ isOpen, onClose }: Props) {
             onClick={onClose}
             className="mt-4 w-full bg-lentera-green text-lentera-bg py-3 rounded-xl font-bold font-display hover:bg-green-300 transition-all active:scale-[0.98]"
           >
-            GO TO DASHBOARD
+            MASUK KE DASHBOARD
           </button>
         </div>
       </div>
